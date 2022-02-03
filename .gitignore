@@ -30,3 +30,35 @@ package-lock.json
 dump.rdb
 
 .prettierrc
+
+
+# Server
+server/node_modules
+server/package-lock.json
+
+# testing
+server/coverage
+
+# intellij
+server/.idea
+
+# OS generated files
+server/.DS_Store
+server/.DS_Store?
+
+server/npm-debug.log*
+server/yarn-debug.log*
+server/yarn-error.log*
+
+server/package-lock.json
+
+server/uploads
+
+server/.vscode
+
+server/dist
+
+# redis dump file
+server/dump.rdb
+
+server/.prettierrc
