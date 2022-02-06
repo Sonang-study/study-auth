@@ -1,0 +1,57 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  background-color: #ebf7de;
+  -webkit-box-shadow: 11px 11px 51px -16px rgba(0, 0, 0, 0.56);
+  -moz-box-shadow: 11px 11px 51px -16px rgba(0, 0, 0, 0.56);
+  box-shadow: 11px 11px 51px -16px rgba(0, 0, 0, 0.56);
+}
+.mailLogin {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+.id,
+.password {
+  border-style: none;
+  border-radius: 15px;
+  outline-style: none;
+  height: 50px;
+  width: 300px;
+  font-size: 20px;
+  transition: all 0.1s ease-in;
+}
+.id {
+  margin-bottom: 5px;
+}
+.id:focus,
+.password:focus {
+  transform: scale(1.02);
+}
+
+.ssoLogin {
+  display: flex;
+  flex-direction: column;
+}
+.googleBtn,
+.githubBtn {
+  height: 50px;
+  width: 300px;
+  font-size: 20px;
+
+  border-style: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.googleBtn:hover,
+.githubBtn:hover {
+  transform: scale(1.03);
+  background-color: gray;
+  color: white;
+}
+
+.googleBtn {
+  margin-bottom: 5px;
+}
