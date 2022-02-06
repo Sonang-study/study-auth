@@ -8,6 +8,10 @@
 }
 .groups {
   display: flex;
+  overflow-x: scroll;
+}
+.btns{
+  min-width:145px;
 }
 .addBtn,
 .logoutBtn {
