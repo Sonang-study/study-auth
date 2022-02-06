@@ -1,0 +1,22 @@
+.members {
+  height: 100%;
+  width: 100%;
+
+  padding: 10px 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.btns {
+  height: 25px;
+  text-align: end;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+.plusBtn {
+  cursor: pointer;
+}
+.member {
+  overflow: scroll;
+}
