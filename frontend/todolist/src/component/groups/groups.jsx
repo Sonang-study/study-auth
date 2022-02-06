@@ -1,7 +1,5 @@
 import React from 'react';
 import styles from './groups.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Group from '../group/group';
 
 const Groups = (props) => {
@@ -13,13 +11,6 @@ const Groups = (props) => {
     { name: 'SHINKO' },
     { name: 'Sonang' },
     { name: '405' },
-    { name: 'DongDaemoon' },
-    { name: 'What' },
-    { name: 'SHINKO' },
-    { name: 'Sonang' },
-    { name: '405' },
-    { name: 'DongDaemoon' },
-
   ];
   return (
     <div className={styles.header}>

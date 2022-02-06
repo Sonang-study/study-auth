@@ -1,0 +1,24 @@
+.member {
+  cursor: pointer;
+
+  background-color: #ebf7de;
+
+  font-size: 20px;
+  text-align: center;
+
+  margin-bottom: 15px;
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  -webkit-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
+  transition: transform 0.1s ease-in;
+
+  overflow-y: scroll;
+}
+
+.member:hover {
+  transform: scale(1.05);
+}
