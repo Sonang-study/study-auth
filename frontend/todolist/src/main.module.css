@@ -1,0 +1,54 @@
+.main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.group {
+  background-color: white;
+  height: 60px;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.body {
+  display: flex;
+}
+.member {
+  background-color: brown;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 60px;
+  width: 240px;
+  height: 100vh;
+}
+.todo {
+  background-color: blueviolet;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 60px;
+  width: 100%;
+  height: 100vh;
+}
+
+@media screen and (max-width: 960px) {
+  .member {
+    display: none;
+    padding-top: 0px;
+  }
+  .todo {
+    padding-top: 0px;
+  }
+  .group {
+    display: none;
+  }
+}

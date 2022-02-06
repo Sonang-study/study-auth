@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Weekly = (props) => {
-  return <h1>weekly</h1>;
+  return <span>weekly</span>;
 };
 
 export default Weekly;

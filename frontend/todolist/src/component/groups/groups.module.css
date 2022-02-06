@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 100%;
+  padding: 0px 20px;
+}
+.groups {
+  display: flex;
+}
+.addBtn,
+.logoutBtn {
+  border-style: none;
+  margin-right: 10px;
+  padding: 10px 10px;
+  border-radius: 20px;
+
+  -webkit-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
+
+  font-size: 15px;
+
+  cursor: pointer;
+}
+
+.addBtn:hover,
+.logoutBtn:hover {
+  opacity: 0.8;
+}
