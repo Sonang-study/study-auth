@@ -10,6 +10,16 @@ const Groups = (props) => {
     { name: '405' },
     { name: 'DongDaemoon' },
     { name: 'What' },
+    { name: 'SHINKO' },
+    { name: 'Sonang' },
+    { name: '405' },
+    { name: 'DongDaemoon' },
+    { name: 'What' },
+    { name: 'SHINKO' },
+    { name: 'Sonang' },
+    { name: '405' },
+    { name: 'DongDaemoon' },
+
   ];
   return (
     <div className={styles.header}>
