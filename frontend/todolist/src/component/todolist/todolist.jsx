@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TodoList = (props) => {
-  return <h1>Todolist</h1>;
+  return <span>Todolist</span>;
 };
 
 export default TodoList;
