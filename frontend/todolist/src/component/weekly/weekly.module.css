@@ -1,0 +1,33 @@
+.weekly {
+  display: flex;
+  flex-direction: column;
+  background-color: #dbe9d9;
+  width: 95%;
+  height: 50%;
+  margin: 20px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  padding: 30px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+.body {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.editBtn {
+  border-style: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+}
+
+.editBtn:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}

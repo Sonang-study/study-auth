@@ -1,17 +1,19 @@
 .group {
-  margin-right: 50px;
-  background-color: #f5a301;
+  margin-right: 30px;
+  background-color: transparent;
   padding: 10px 40px;
   border-radius: 20px;
-
-  -webkit-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
+  text-shadow: 10px 10px 15px green;
+  color: black;
+  /* text-decoration: underline; */
+  /* -webkit-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
-  box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75); */
 
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
 .group:hover {
+  color:lightgrey;
   transform: scale(1.05);
 }
-

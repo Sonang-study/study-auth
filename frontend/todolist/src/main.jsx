@@ -16,8 +16,8 @@ const Main = (props) => {
           <Members />
         </section>
         <section className={styles.todo}>
-          <Weekly />
-          <TodoList />
+          <Weekly className={styles.weekly} />
+          <TodoList classNAme={styles.todolist}/>
         </section>
       </body>
     </section>
