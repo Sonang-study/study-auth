@@ -1,0 +1,41 @@
+.todolist {
+  width: 95%;
+  height: 50%;
+  background-color: bisque;
+  margin: 20px;
+  margin-top: 10px;
+  border-radius: 20px;
+  padding: 30px;
+}
+.header {
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.body {
+  display: flex;
+  height: 100%;
+}
+.ul {
+  flex: 1 1 50%;
+}
+
+.memo {
+  flex: 1 1 50%;
+  background-color: #f4ca9a;
+  padding: 10px 20px;
+  height: 90%;
+  border-radius: 20px;
+}
+.editBtn {
+  border-style: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+}
+
+.editBtn:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}

@@ -16,7 +16,9 @@
 }
 .plusBtn {
   cursor: pointer;
+  transition: all 0.1s ease-in;
 }
-.member {
-  overflow: scroll;
+.plusBtn:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
 }
