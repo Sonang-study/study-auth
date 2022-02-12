@@ -62,3 +62,10 @@ server/dist
 server/dump.rdb
 
 server/.prettierrc
+
+# typeOrm config
+**/ormconfig.json
+
+# env file
+**/.env.**
+
