@@ -62,7 +62,7 @@ export class User extends CoreEntity {
   @BeforeInsert()
   async hashPassword(): Promise<void> {
     try{
-      this.password = await bcrypt.hash(this.password, 10);
+      this.password = await bcrypt.hash(this.password, +process.env.ROUNDS);
     } catch (err) {
       throw new InternalServerErrorException()
     }

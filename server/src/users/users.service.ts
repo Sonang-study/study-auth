@@ -19,6 +19,7 @@ export class UsersService {
   async create({ firstName, lastName, email, password }: CreateUserDto): Promise<string> {
 
     const exists = await this.users.findOne({email});
+
     if(exists){
       throw new AlreadyExistError();
     }
@@ -26,8 +27,8 @@ export class UsersService {
     return 'success create';
   };
 
-  async getOne(id): Promise<User> {
-    return await this.users.findOne({id});
+  async getOne(query): Promise<User> {
+    return await this.users.findOne(query);
   }
 
   async updateOne(id: number, { firstName, lastName, password }: UpdateUserDto): Promise<User> {
