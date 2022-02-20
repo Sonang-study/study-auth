@@ -1,0 +1,63 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "frontend",
+      "image": "jayko95/study-auth-frontend",
+      "hostname": "frontend",
+      "essential": false,
+      "memory": 512
+    },
+    {
+      "name": "backend",
+      "image": "jayko95/study-auth-server",
+      "hostname": "backend",
+      "essential": false,
+      "memory": 512
+    },
+    {
+      "name": "nginx",
+      "image": "jayko95/study-auth-nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["frontend", "backend"],
+      "memory": 512
+    }
+  ]
+}
+
+version: '2.4'
+
+services:
+  frontend:
+    image: jayko95/study-auth-frontend
+    volumes:
+      - /app/todolist/node_modules
+      - ./frontend:/app/todolist
+    stdin_open: true
+    mem_limit: 512m
+
+  nginx:
+    restart: always
+    image: jayko95/study-auth-nginx
+    ports:
+      - "80:80"
+    mem_limit: 512m
+    links:
+      - frontend
+      - backend
+
+  backend:
+    image: jayko95/study-auth-server
+    volumes:
+      - /app/node_modules
+      - ./backend:/app
+    env_file:
+      - .env
+    mem_limit: 512m
