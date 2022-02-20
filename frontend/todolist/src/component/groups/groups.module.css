@@ -2,13 +2,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  width:100%;
   height: 100%;
   padding: 0px 20px;
 }
 .groups {
   display: flex;
-  overflow-x: scroll;
+  max-width:90%;
 }
 .btns{
   min-width:145px;
