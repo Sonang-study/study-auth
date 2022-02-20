@@ -1,27 +1,41 @@
-import { IsDate, IsString } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsDateString, IsOptional, IsString } from 'class-validator';
 import { CoreEntity } from 'src/common/entities/core.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
+import { Entity, Column, ManyToOne, OneToMany } from 'typeorm'
 import { User } from  '../../users/entities/user.entity'
+import { TaskDay } from './task.day.entity';
 
 @Entity()
 export class Task extends CoreEntity {
+  @ApiProperty({
+    example: '2022-02-12',
+    description: '할 일 날짜 설정',
+  })
   @Column()
-  @IsDate()
-  date: string;
+  @IsDateString()
+  date: Date;
 
-  @Column()
-  @IsString()
-  finishedAt: string;
-
+  @ApiProperty({
+    example: 'Docker 마스터하기',
+    description: '할 일 종합 계획',
+  })
   @Column()
   @IsString()
   plan: string;
 
-  @Column()
+  @ApiProperty({
+    example: 'image.png',
+    description: '한 일 인증 사진 등록',
+  })
+  @Column({nullable: true})
   @IsString()
+  @IsOptional()
   image: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, user => user.tasks)
   user: User
+
+  @OneToMany(type => TaskDay, taskDay => taskDay.task)
+  taskDays: TaskDay[];
 
 }

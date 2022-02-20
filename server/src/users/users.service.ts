@@ -28,7 +28,7 @@ export class UsersService {
   };
 
   async getOne(query): Promise<User> {
-    return await this.users.findOne(query);
+    return await this.users.findOne(query, { relations: ['tasks'] });
   }
 
   async updateOne(id: number, { firstName, lastName, password }: UpdateUserDto): Promise<User> {
