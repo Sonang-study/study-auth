@@ -9,6 +9,7 @@ import { CommonModule } from './common/common.module';
 import * as Joi from 'joi';
 import { LoggerMiddleware } from './logger.middleware';
 import { SwaggerModule } from '@nestjs/swagger';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -26,8 +27,9 @@ import { SwaggerModule } from '@nestjs/swagger';
     TypeOrmModule.forRoot(),
     UsersModule,
     TasksModule,
-    // CommonModule,
+    CommonModule,
     SwaggerModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
