@@ -1,37 +1,3 @@
-{
-  "AWSEBDockerrunVersion": 2,
-  "containerDefinitions": [
-    {
-      "name": "frontend",
-      "image": "jayko95/study-auth-frontend",
-      "hostname": "frontend",
-      "essential": false,
-      "memory": 512
-    },
-    {
-      "name": "backend",
-      "image": "jayko95/study-auth-server",
-      "hostname": "backend",
-      "essential": false,
-      "memory": 512
-    },
-    {
-      "name": "nginx",
-      "image": "jayko95/study-auth-nginx",
-      "hostname": "nginx",
-      "essential": true,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 80
-        }
-      ],
-      "links": ["frontend", "backend"],
-      "memory": 512
-    }
-  ]
-}
-
 version: '2.4'
 
 services:
