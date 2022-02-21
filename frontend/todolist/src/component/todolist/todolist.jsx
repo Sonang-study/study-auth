@@ -5,6 +5,7 @@ import styles from './todolist.module.css';
 const TodoList = (props) => {
   const [todos, setTodos] = useState(tasks.taskDays);
   const inputValue = useRef(null);
+  const dateForm = useRef(null);
   const [onInput, setOnInput] = useState(false);
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
@@ -42,7 +43,7 @@ const TodoList = (props) => {
       <section className={styles.header}>
         <span className={styles.span}>Todolist</span>
         <div>
-          <input type='date' className={styles.date} />
+          <input type='date' className={styles.date} ref={dateForm} />
           <button className={styles.editBtn} onClick={handleInput}>
             Edit
           </button>
