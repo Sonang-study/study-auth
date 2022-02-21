@@ -20,3 +20,7 @@ phases:
       - docker push $IMAGE_REPO_NAME-frontend:$TAG
       - docker push $IMAGE_REPO_NAME-server:$TAG
       - docker push $IMAGE_REPO_NAME-nginx:$TAG
+
+  artifacts:
+  files:
+    - '**/*'
