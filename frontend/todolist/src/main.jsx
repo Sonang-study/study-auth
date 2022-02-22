@@ -5,13 +5,39 @@ import Members from './component/members/members';
 import TodoList from './component/todolist/todolist';
 import Weekly from './component/weekly/weekly';
 import AddGroup from './component/popup/addGroup/addGroup';
+import tasks from './db/database.js';
+import nowDate from './util/date';
 
 const Main = (props) => {
-  const [onPopup, setOnPopup] = useState(false);
+  const [togglePopup, setTogglePopup] = useState(false);
+  const [todos, setTodos] = useState(tasks[0].taskDays);
+  const [pageDate, setPageDate] = useState(nowDate);
 
   const popupClick = () => {
-    setOnPopup(!onPopup);
-    console.log('FUCK');
+    setTogglePopup(!togglePopup);
+  };
+
+  const finishedTodo = (key) => {
+    const newTodos = todos.map((todo) => {
+      if (String(todo.id) === String(key)) {
+        todo.finishedAt = todo.finishedAt ? null : Date.now();
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+  };
+
+  const addTodo = (todo) => {
+    setTodos([{ id: Date.now(), finishedAt: null, dayPlan: todo }, ...todos]);
+  };
+
+  const deleteTodo = (key) => {
+    const newTodos = todos.filter((todo) => String(todo.id) !== String(key));
+    setTodos(newTodos);
+  };
+
+  const handlePageDate = (newDate) => {
+    setPageDate(newDate);
   };
 
   return (
@@ -19,16 +45,24 @@ const Main = (props) => {
       <header className={styles.group}>
         <Groups onPopupClick={popupClick} />
       </header>
-      <body className={styles.body}>
+      <div className={styles.body}>
         <section className={styles.member}>
           <Members onPopupClick={popupClick} />
         </section>
         <section className={styles.todo}>
-          {onPopup && <AddGroup />}
+          {togglePopup && <AddGroup />}
           <Weekly className={styles.weekly} />
-          <TodoList className={styles.todolist} />
+          <TodoList
+            className={styles.todolist}
+            todos={todos}
+            pageDate={pageDate}
+            finishedTodo={finishedTodo}
+            addTodo={addTodo}
+            deleteTodo={deleteTodo}
+            handlePageDate={handlePageDate}
+          />
         </section>
-      </body>
+      </div>
     </section>
   );
 };

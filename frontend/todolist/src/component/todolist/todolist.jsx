@@ -1,16 +1,17 @@
 import React, { useRef, useState } from 'react';
 import tasks from '../../db/database';
+import nowDate from '../../util/date';
 import styles from './todolist.module.css';
 
-const TodoList = (props) => {
-  const [todos, setTodos] = useState(tasks[0].taskDays);
+const TodoList = ({ todos, pageDate, finishedTodo, addTodo, deleteTodo, handlePageDate }) => {
+  const [onInput, setOnInput] = useState(false);
   const inputValue = useRef(null);
   const dateForm = useRef(null);
-  const [onInput, setOnInput] = useState(false);
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       const todo = inputValue.current.value;
-      setTodos([{ id: Date.now(), finishedAt: null, dayPlan: todo }, ...todos]);
+      addTodo(todo);
       inputValue.current.value = '';
     }
   };
@@ -22,33 +23,19 @@ const TodoList = (props) => {
   const handleClick = (e) => {
     if (e.target.tagName === 'LI') {
       const key = e.target.dataset.key;
-      const newTodos = todos.map((todo) => {
-        if (String(todo.id) === String(key)) {
-          todo.finishedAt = todo.finishedAt ? null : Date.now();
-        }
-        return todo;
-      });
-      setTodos(newTodos);
+      finishedTodo(key);
     }
   };
 
   const handleDelete = (e) => {
     const key = e.target.dataset.key;
-    const newTodos = todos.filter((todo) => String(todo.id) !== String(key));
-    setTodos(newTodos);
+    deleteTodo(key);
   };
+
   const handleChange = (e) => {
-    const now = new Date();
-    const date = now.getDate();
-    const month =
-      now.getMonth() + 1 < 10
-        ? 0 + `${now.getMonth() + 1}`
-        : now.getMonth() + 1;
-    const year = now.getFullYear();
-    const nowDate = `${year}-${month}-${date}`;
-    console.log(tasks[0].createdAt.slice(0, 10), nowDate);
-    console.log(dateForm.current.value);
+    handlePageDate(dateForm.current.value);
   };
+
   return (
     <section className={styles.todolist}>
       <section className={styles.header}>
@@ -58,6 +45,7 @@ const TodoList = (props) => {
             type='date'
             className={styles.date}
             ref={dateForm}
+            value={pageDate}
             onChange={handleChange}
           />
           <button className={styles.editBtn} onClick={handleInput}>
