@@ -3,7 +3,7 @@ import tasks from '../../db/database';
 import styles from './todolist.module.css';
 
 const TodoList = (props) => {
-  const [todos, setTodos] = useState(tasks.taskDays);
+  const [todos, setTodos] = useState(tasks[0].taskDays);
   const inputValue = useRef(null);
   const dateForm = useRef(null);
   const [onInput, setOnInput] = useState(false);
@@ -37,13 +37,29 @@ const TodoList = (props) => {
     const newTodos = todos.filter((todo) => String(todo.id) !== String(key));
     setTodos(newTodos);
   };
-
+  const handleChange = (e) => {
+    const now = new Date();
+    const date = now.getDate();
+    const month =
+      now.getMonth() + 1 < 10
+        ? 0 + `${now.getMonth() + 1}`
+        : now.getMonth() + 1;
+    const year = now.getFullYear();
+    const nowDate = `${year}-${month}-${date}`;
+    console.log(tasks[0].createdAt.slice(0, 10), nowDate);
+    console.log(dateForm.current.value);
+  };
   return (
     <section className={styles.todolist}>
       <section className={styles.header}>
         <span className={styles.span}>Todolist</span>
         <div>
-          <input type='date' className={styles.date} ref={dateForm} />
+          <input
+            type='date'
+            className={styles.date}
+            ref={dateForm}
+            onChange={handleChange}
+          />
           <button className={styles.editBtn} onClick={handleInput}>
             Edit
           </button>

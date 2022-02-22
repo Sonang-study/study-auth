@@ -1,4 +1,4 @@
-const tasks = {
+const tasks = [{
   id: 1,
   createdAt: '2022-02-13T12:08:54.850Z',
   updatedAt: '2022-02-13T12:41:32.000Z',
@@ -28,5 +28,5 @@ const tasks = {
       dayPlan: 'play baseball',
     },
   ],
-};
+}];
 export default tasks;
