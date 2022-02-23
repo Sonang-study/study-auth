@@ -4,8 +4,8 @@ services:
   frontend:
     image: jayko95/study-auth-frontend
     volumes:
-      - /app/todolist/node_modules
-      - ./todolist/:/app
+      - /app/node_modules
+      - ./frontend/todolist:/app
     stdin_open: true
     mem_limit: 512m
 
