@@ -20,7 +20,7 @@ async function bootstrap() {
     .addTag('US')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('apidocs', app, document);
+  SwaggerModule.setup('/api/v1/apidocs', app, document);
 
   await app.listen(3080);
 }
