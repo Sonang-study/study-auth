@@ -40,6 +40,6 @@ export class UsersController {
   @Delete(':id')
   @Roles(Role.User)
   async deleteUser(@Param('id', ParseIntPipe) id:number, @User() user) {
-    return await this.usersService.getOne(id, user);
+    return await this.usersService.deleteOne(id, user);
   }
 }
