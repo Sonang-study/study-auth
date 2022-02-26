@@ -11,6 +11,12 @@ enum SignupMethod {
   google = 'google',
 }
 
+enum Role {
+  ADMIN = 'admin',
+  GROUP_OWNER = 'groupOwner',
+  USER = 'user',
+}
+
 @Entity()
 export class User extends CoreEntity {
   @ApiProperty({
@@ -55,6 +61,15 @@ export class User extends CoreEntity {
   @IsOptional()
   @IsString()
   signupMethod: SignupMethod;
+
+  @ApiProperty({
+    example: 'USER, ADMIN, GROUP_OWNER',
+    description: 'user roles',
+    default: 'USER',
+  })
+  @Column({default: Role.USER , type:'enum' ,enum:Role})
+  @IsString()
+  role: Role;
 
   @OneToMany(type => Task, task => task.user)
   tasks: Task[];
