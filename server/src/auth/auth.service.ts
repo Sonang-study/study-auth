@@ -13,7 +13,7 @@ export class AuthService {
   async validateUser(userInfo): Promise<any> {
     const query = {
       where: {email: userInfo.email},
-      select: ['email', 'firstName', 'lastName', 'password'],
+      select: ['id', 'email', 'firstName', 'lastName', 'password', 'role'],
     }
     const user = await this.usersService.getOne(query);
     if (!user) {
@@ -35,7 +35,7 @@ export class AuthService {
 
   
   async responseJWT(user: any) {
-    const payload = { email: user.email, id: user.id };
+    const payload = { email: user.email, id: user.id, role: user.role };
     return {
       access_token: this.jwtService.sign(payload),
     };

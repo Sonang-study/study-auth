@@ -1,6 +1,6 @@
 import { IsEmail, isEmpty, IsOptional, IsString } from 'class-validator';
 import { CoreEntity } from 'src/common/entities/core.entity';
-import { Entity, Column, OneToMany, BeforeInsert } from 'typeorm'
+import { Entity, Column, OneToMany, BeforeInsert, BeforeUpdate } from 'typeorm'
 import { Task } from '../../tasks/entities/task.entity'
 import * as bcrypt from 'bcrypt'
 import { InternalServerErrorException } from '@nestjs/common';
@@ -74,6 +74,7 @@ export class User extends CoreEntity {
   @OneToMany(type => Task, task => task.user)
   tasks: Task[];
 
+  @BeforeUpdate()
   @BeforeInsert()
   async hashPassword(): Promise<void> {
     try{
@@ -81,5 +82,9 @@ export class User extends CoreEntity {
     } catch (err) {
       throw new InternalServerErrorException()
     }
+  }
+
+  isAdmin(): boolean {
+    return this.role === Role.ADMIN;
   }
 }

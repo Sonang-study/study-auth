@@ -1,6 +1,9 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm'
+import { Action } from 'src/casl/action.enum';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { AlreadyExistError } from 'src/common/errors/already-exist.error';
+import { UnAuthorizedError } from 'src/common/errors/unAuthorized.error';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { UpdateUserDto } from './dtos/updateUser.dto';
@@ -10,6 +13,7 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(@InjectRepository(User)
   private readonly users: Repository<User>,
+  private caslAbilityFactory: CaslAbilityFactory,
   ) {}
 
   async getAll(): Promise<User[]> {
@@ -31,15 +35,25 @@ export class UsersService {
     return await this.users.findOne(query, { relations: ['tasks'] });
   }
 
-  async updateOne(id: number, { firstName, lastName, password }: UpdateUserDto): Promise<User> {
-    const user = await this.users.findOne({id});
-    user.firstName = firstName;
-    user.lastName = lastName;
-    user.password = password;
-    return await this.users.save(user);
+  async updateOne(id: number, { firstName, lastName, password }: UpdateUserDto, user): Promise<User> {
+    const userForUpdate = await this.users.findOne({id});
+    const ability = this.caslAbilityFactory.PermissionForUser(user);
+
+    if (!ability.can(Action.Update, userForUpdate)) throw new UnAuthorizedError();
+
+    userForUpdate.firstName = firstName;
+    userForUpdate.lastName = lastName;
+    userForUpdate.password = password;
+    return await this.users.save(userForUpdate);
   }
 
-  async deleteOne(id): Promise<void> {
+  async deleteOne(id, user): Promise<string> {
+    const userForDelete = await this.users.findOne({id});
+    const ability = this.caslAbilityFactory.PermissionForUser(user);
+
+    if (!ability.can(Action.Update, userForDelete)) throw new UnAuthorizedError();
+
     await this.users.delete({id})
+    return 'success delete';
   }
 }
