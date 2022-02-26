@@ -7,14 +7,14 @@ services:
       - /app/node_modules
       - ./frontend/todolist:/app
     stdin_open: true
-    mem_limit: 512m
+    mem_limit: 128m
 
   nginx:
     restart: always
     image: jayko95/study-auth-nginx
     ports:
       - "80:80"
-    mem_limit: 512m
+    mem_limit: 128m
     links:
       - frontend
       - backend
@@ -26,4 +26,4 @@ services:
       - ./server:/app
     env_file:
       - .env
-    mem_limit: 512m
+    mem_limit: 128m
