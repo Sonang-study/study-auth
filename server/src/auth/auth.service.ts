@@ -10,9 +10,9 @@ export class AuthService {
     private jwtService: JwtService,
     ){}
 
-  async validateUser(userinfo): Promise<any> {
+  async validateUser(userInfo): Promise<any> {
     const query = {
-      where: {email: userinfo.email},
+      where: {email: userInfo.email},
       select: ['email', 'firstName', 'lastName', 'password'],
     }
     const user = await this.usersService.getOne(query);
@@ -21,7 +21,7 @@ export class AuthService {
     }
 
     const isPasswordValidated: boolean = await bcrypt.compare(
-      userinfo.password,
+      userInfo.password,
       user.password,
     );
 
@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   
-  async login(user: any) {
+  async responseJWT(user: any) {
     const payload = { email: user.email, id: user.id };
     return {
       access_token: this.jwtService.sign(payload),

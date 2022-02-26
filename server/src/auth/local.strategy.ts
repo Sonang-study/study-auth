@@ -8,12 +8,15 @@ import { LoginUserDto } from 'src/users/dtos/loginUser.dto.ts';
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private authService: AuthService) {
     super(
-      { usernameField: 'email' }
+      { usernameField: 'email',
+        passwordField: 'password'
+      }
     );
   }
 
-  async validate(userinfo: LoginUserDto): Promise<any> {
-    const user = await this.authService.validateUser(userinfo);
+  async validate(email: string, password: string): Promise<any> {
+    const userInfo = { email, password };
+    const user = await this.authService.validateUser(userInfo);
     return user;
   }
 }
