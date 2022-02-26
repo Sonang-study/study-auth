@@ -2,6 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ApiBasicAuth, DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { RolesGuard } from './auth/role/roles.guard';
 import { HttpExceptionFilter } from './http-exception.filter';
 
 async function bootstrap() {

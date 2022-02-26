@@ -10,6 +10,7 @@ import * as Joi from 'joi';
 import { LoggerMiddleware } from './logger.middleware';
 import { SwaggerModule } from '@nestjs/swagger';
 import { AuthModule } from './auth/auth.module';
+import { CaslModule } from './casl/casl.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { AuthModule } from './auth/auth.module';
     CommonModule,
     SwaggerModule,
     AuthModule,
+    CaslModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/role/roles.guard';
 import { CreateTaskDto } from './dtos/createTask.dto';
 import { CreateTaskDayDto } from './dtos/createTaskDay.dto';
 import { UpdateTaskDto } from './dtos/updateTask.dto';
@@ -10,8 +11,11 @@ import { TasksService } from './tasks.service';
 @UseGuards(JwtAuthGuard)
 @Controller('tasks')
 export class TasksController {
-  constructor(private tasksService: TasksService) {}
+  constructor(
+    private tasksService: TasksService,
+    ) {}
 
+  @UseGuards(RolesGuard)
   @ApiOperation({summary: '하루 종합 목표 리스트'})
   @Get('')
   async getTaskList() {

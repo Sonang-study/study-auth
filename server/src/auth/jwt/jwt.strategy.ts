@@ -22,11 +22,10 @@ Strategy실행되면 자동으로 validate 실행되기에 함수이름 변경�
 */
   async validate(payload: any) {
     const email = payload.email;
-    const id = payload.id;
     const user = await this.users.findOne({email});
 
     if (!user) throw new UnAuthorizedError();
 
-    return { id, email };
+    return payload;
   }
 }
