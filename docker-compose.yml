@@ -26,4 +26,4 @@ services:
       - ./server:/app
     env_file:
       - .env
-    mem_limit: 128m
+    mem_limit: 512m
