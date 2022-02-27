@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   frontend:
-    image: jayko95/study-auth-frontend
+    image: jayko95/study-auth-frontend:latest
     volumes:
       - /app/node_modules
       - ./frontend/todolist:/app
@@ -11,7 +11,7 @@ services:
 
   nginx:
     restart: always
-    image: jayko95/study-auth-nginx
+    image: jayko95/study-auth-nginx:latest
     ports:
       - "80:80"
     mem_limit: 128m
@@ -20,7 +20,7 @@ services:
       - backend
 
   backend:
-    image: jayko95/study-auth-server
+    image: jayko95/study-auth-server:latest
     volumes:
       - /app/node_modules
       - ./server:/app
