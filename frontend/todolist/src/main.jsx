@@ -51,6 +51,7 @@ const Main = (props) => {
   return (
     <section className={styles.main}>
       <header className={styles.header}>
+        <button className={styles.logoutBtn}>MyName</button>
         <button className={styles.logoutBtn}>Log out</button>
       </header>
       <div className={styles.body}>
