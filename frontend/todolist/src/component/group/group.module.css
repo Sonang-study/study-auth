@@ -1,7 +1,11 @@
 .group {
-  margin-right: 30px;
-  background-color: transparent;
-  padding: 10px 40px;
+  cursor: pointer;
+
+  font-size: 15px;
+  text-align: center;
+
+  margin-bottom: 15px;
+  padding: 5px 10px;
   border-radius: 20px;
   text-shadow: 10px 10px 15px green;
   color: black;
@@ -9,8 +13,6 @@
   /* -webkit-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
   box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75); */
-
-  cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
 .group:hover {

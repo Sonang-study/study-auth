@@ -42,10 +42,13 @@ const Main = (props) => {
 
   return (
     <section className={styles.main}>
-      <header className={styles.group}>
-        <Groups onPopupClick={popupClick} />
+      <header className={styles.header}>
+        <button className={styles.logoutBtn}>Log out</button>
       </header>
       <div className={styles.body}>
+        <section className={styles.group}>
+          <Groups onPopupClick={popupClick} />
+        </section>
         <section className={styles.member}>
           <Members onPopupClick={popupClick} />
         </section>

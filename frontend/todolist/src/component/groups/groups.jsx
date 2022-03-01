@@ -19,21 +19,18 @@ const Groups = ({ onPopupClick }) => {
     onPopupClick();
   };
   return (
-    <div className={styles.header}>
-      <section className={styles.icon}>
-        <FontAwesomeIcon icon={faPlus} />
+    <div className={styles.groups}>
+      <section className={styles.btns}>
+        <FontAwesomeIcon
+          icon={faPlus}
+          className={styles.plusBtn}
+          onClick={onAddGroup}
+        />
       </section>
-      <section className={styles.groups}>
+      <section className={styles.group}>
         {groups.map((group) => (
           <Group group={group} />
         ))}
-      </section>
-
-      <section className={styles.btns}>
-        <button className={styles.addBtn} onClick={onAddGroup}>
-          ADD
-        </button>
-        <button className={styles.logoutBtn}>Log out</button>
       </section>
     </div>
   );
