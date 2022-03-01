@@ -7,7 +7,7 @@ services:
       - /app/node_modules
       - ./frontend/todolist:/app
     stdin_open: true
-    mem_limit: 128m
+    mem_limit: 512m
 
   nginx:
     restart: always
