@@ -4,36 +4,23 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styles from './groups.module.css';
 import Group from '../group/group';
 
-const Groups = ({ onPopupClick }) => {
-  const groups = [
-    { name: 'Sonang' },
-    { name: '405' },
-    { name: 'DongDaemoon' },
-    { name: 'What' },
-    { name: 'SHINKO' },
-    { name: 'Sonang' },
-    { name: '405' },
-  ];
-
+const Groups = ({ groups, handleGroup, onPopupClick }) => {
   const onAddGroup = () => {
     onPopupClick();
   };
   return (
-    <div className={styles.header}>
-      <section className={styles.icon}>
-        <FontAwesomeIcon icon={faPlus} />
-      </section>
-      <section className={styles.groups}>
-        {groups.map((group) => (
-          <Group group={group} />
-        ))}
-      </section>
-
+    <div className={styles.groups}>
       <section className={styles.btns}>
-        <button className={styles.addBtn} onClick={onAddGroup}>
-          ADD
-        </button>
-        <button className={styles.logoutBtn}>Log out</button>
+        <FontAwesomeIcon
+          icon={faPlus}
+          className={styles.plusBtn}
+          onClick={onAddGroup}
+        />
+      </section>
+      <section className={styles.group}>
+        {groups.map((group) => (
+          <Group handleGroup={handleGroup} group={group} />
+        ))}
       </section>
     </div>
   );

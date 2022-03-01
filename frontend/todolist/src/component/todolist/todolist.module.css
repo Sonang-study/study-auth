@@ -52,6 +52,7 @@
 }
 .list {
   cursor: pointer;
+  list-style: none;
 }
 
 .memo {

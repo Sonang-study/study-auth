@@ -3,7 +3,14 @@ import tasks from '../../db/database';
 import nowDate from '../../util/date';
 import styles from './todolist.module.css';
 
-const TodoList = ({ todos, pageDate, finishedTodo, addTodo, deleteTodo, handlePageDate }) => {
+const TodoList = ({
+  todos,
+  pageDate,
+  finishedTodo,
+  addTodo,
+  deleteTodo,
+  handlePageDate,
+}) => {
   const [onInput, setOnInput] = useState(false);
   const inputValue = useRef(null);
   const dateForm = useRef(null);
@@ -24,12 +31,10 @@ const TodoList = ({ todos, pageDate, finishedTodo, addTodo, deleteTodo, handlePa
     if (e.target.tagName === 'LI') {
       const key = e.target.dataset.key;
       finishedTodo(key);
+    } else if (e.target.tagName === 'BUTTON') {
+      const key = e.target.dataset.key;
+      deleteTodo(key);
     }
-  };
-
-  const handleDelete = (e) => {
-    const key = e.target.dataset.key;
-    deleteTodo(key);
   };
 
   const handleChange = (e) => {
@@ -68,26 +73,18 @@ const TodoList = ({ todos, pageDate, finishedTodo, addTodo, deleteTodo, handlePa
             {todos.map((todo) =>
               !todo.finishedAt ? (
                 <li className={styles.list} data-key={todo.id}>
-                  {todo.dayPlan}
-                  <button
-                    data-key={todo.id}
-                    className={styles.todoBtn}
-                    onClick={handleDelete}
-                  >
-                    ❌
+                  <button data-key={todo.id} className={styles.todoBtn}>
+                    ✓
                   </button>
+                  {todo.dayPlan}
                 </li>
               ) : (
                 <s>
                   <li className={styles.list} data-key={todo.id}>
-                    {todo.dayPlan}
-                    <button
-                      data-key={todo.id}
-                      className={styles.todoBtn}
-                      onClick={handleDelete}
-                    >
-                      ❌
+                    <button data-key={todo.id} className={styles.todoBtn}>
+                      ✓
                     </button>
+                    {todo.dayPlan}
                   </li>
                 </s>
               )
