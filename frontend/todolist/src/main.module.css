@@ -16,7 +16,7 @@
 .group {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: #dcdcdc;
 }
 .body {
   display: flex;
@@ -27,7 +27,7 @@
   align-items: center;
   justify-content: center;
 
-  width: 240px;
+  width: 200px;
   height: 100%;
 }
 .todo {

@@ -6,11 +6,14 @@ import TodoList from './component/todolist/todolist';
 import Weekly from './component/weekly/weekly';
 import AddGroup from './component/popup/addGroup/addGroup';
 import tasks from './db/database.js';
+import userData from './db/users.js';
 import nowDate from './util/date';
 
 const Main = (props) => {
   const [togglePopup, setTogglePopup] = useState(false);
   const [todos, setTodos] = useState(tasks[0].taskDays);
+  const [groups, setGroups] = useState(userData);
+  const [members, setMembers] = useState(groups);
   const [pageDate, setPageDate] = useState(nowDate);
 
   const popupClick = () => {
@@ -40,6 +43,11 @@ const Main = (props) => {
     setPageDate(newDate);
   };
 
+  const handleGroup = (id) => {
+    const selectedGroup = groups.filter((group) => group.id == id);
+    setMembers(selectedGroup);
+  };
+
   return (
     <section className={styles.main}>
       <header className={styles.header}>
@@ -47,10 +55,18 @@ const Main = (props) => {
       </header>
       <div className={styles.body}>
         <section className={styles.group}>
-          <Groups onPopupClick={popupClick} />
+          <Groups
+            groups={groups}
+            handleGroup={handleGroup}
+            onPopupClick={popupClick}
+          />
         </section>
         <section className={styles.member}>
-          <Members onPopupClick={popupClick} />
+          <Members
+            members={members[0].users}
+            groupName={members[0].name}
+            onPopupClick={popupClick}
+          />
         </section>
         <section className={styles.todo}>
           {togglePopup && <AddGroup />}

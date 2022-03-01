@@ -1,4 +1,4 @@
-.group {
+/* .group {
   cursor: pointer;
 
   font-size: 15px;
@@ -9,13 +9,23 @@
   border-radius: 20px;
   text-shadow: 10px 10px 15px green;
   color: black;
-  /* text-decoration: underline; */
-  /* -webkit-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
+   text-decoration: underline;
+   -webkit-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75);
-  box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75); */
+  box-shadow: 10px 10px 21px -15px rgba(0, 0, 0, 0.75); 
   transition: transform 0.2s ease-in-out;
 }
 .group:hover {
-  color:lightgrey;
+  color: lightgrey;
   transform: scale(1.05);
+} */
+.groupImage {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+}
+.groupImage:hover {
+  transform: scale(1.03);
 }
