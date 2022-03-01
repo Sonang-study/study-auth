@@ -15,7 +15,6 @@ const Weekly = (props) => {
     <section className={styles.weekly}>
       <section className={styles.header}>
         <span className={styles.span}>Weekly</span>
-        <button className={styles.editBtn}>Edit</button>
       </section>
       <section className={styles.body}>
         {date.map((name) => (
