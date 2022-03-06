@@ -4,13 +4,11 @@ import defaultImage from '../../image/defaultImage.png';
 
 const Group = ({ group, handleGroup }) => {
   const onGroupClick = (e) => {
-    const groupId = e.target.dataset.id;
-    handleGroup(groupId);
+    handleGroup(group.groupId);
   };
   return (
     <img
       src={group.image || defaultImage}
-      data-id={group.id}
       alt='groupImage'
       onClick={onGroupClick}
       className={styles.groupImage}

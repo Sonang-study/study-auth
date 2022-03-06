@@ -1,11 +1,11 @@
 const userData = [
   {
-    id: 1,
+    groupId: 1,
     name: 'inwoong',
     image: undefined,
     users: [
       {
-        id: 32143,
+        userId: 32143,
         firstName: 'inwoong',
         lastName: 'kang',
         email: 'kanginwoong@hanmail.com',
@@ -14,7 +14,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 32144,
+        userId: 32144,
         firstName: 'inwoong',
         lastName: 'kang',
         email: 'kanginwoong@hanmail.com',
@@ -23,7 +23,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 32145,
+        userId: 32145,
         firstName: 'inwoong',
         lastName: 'kang',
         email: 'kanginwoong@hanmail.com',
@@ -32,7 +32,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 32146,
+        userId: 32146,
         firstName: 'inwoong',
         lastName: 'kang',
         email: 'kanginwoong@hanmail.com',
@@ -41,7 +41,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 32147,
+        userId: 32147,
         firstName: 'inwoong',
         lastName: 'kang',
         email: 'kanginwoong@hanmail.com',
@@ -50,7 +50,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 32148,
+        userId: 32148,
         firstName: 'inwoong',
         lastName: 'kang',
         email: 'kanginwoong@hanmail.com',
@@ -59,7 +59,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 32149,
+        userId: 32149,
         firstName: 'inwoong',
         lastName: 'kang',
         email: 'kanginwoong@hanmail.com',
@@ -70,12 +70,12 @@ const userData = [
     ],
   },
   {
-    id: 2,
+    groupId: 2,
     name: 'joonyoung',
     image: undefined,
     users: [
       {
-        id: 3210,
+        userId: 3210,
         firstName: 'jy',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -84,7 +84,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3211,
+        userId: 3211,
         firstName: 'jy',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -93,7 +93,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3212,
+        userId: 3212,
         firstName: 'jy',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -102,7 +102,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3213,
+        userId: 3213,
         firstName: 'jy',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -111,7 +111,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3214,
+        userId: 3214,
         firstName: 'jy',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -120,7 +120,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3215,
+        userId: 3215,
         firstName: 'jy',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -129,7 +129,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3216,
+        userId: 3216,
         firstName: 'jy',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -140,12 +140,12 @@ const userData = [
     ],
   },
   {
-    id: 3,
-    name: 'joonyoung',
+    groupId: 3,
+    name: 'jsssss',
     image: undefined,
     users: [
       {
-        id: 3210,
+        userId: 3210,
         firstName: 'jysssss',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -154,7 +154,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3211,
+        userId: 3211,
         firstName: 'jyssss',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -163,7 +163,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3212,
+        userId: 3212,
         firstName: 'jysssss',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -172,7 +172,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3213,
+        userId: 3213,
         firstName: 'jyssss',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -181,7 +181,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3214,
+        userId: 3214,
         firstName: 'jy',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -190,7 +190,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3215,
+        userId: 3215,
         firstName: 'jy',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',
@@ -199,7 +199,7 @@ const userData = [
         role: 'USER',
       },
       {
-        id: 3216,
+        userId: 3216,
         firstName: 'jy',
         lastName: 'ko',
         email: 'kanginwoong@hanmail.com',

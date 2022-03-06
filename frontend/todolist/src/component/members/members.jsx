@@ -4,7 +4,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styles from './members.module.css';
 import Member from '../member/member';
 
-const Members = ({ members, groupName, onPopupClick }) => {
+const Members = ({ members, groupName,handleUser, onPopupClick }) => {
   const onAddMember = () => {
     onPopupClick();
   };
@@ -21,7 +21,7 @@ const Members = ({ members, groupName, onPopupClick }) => {
       </section>
       <section className={styles.member}>
         {members.map((member) => (
-          <Member member={member} />
+          <Member handleUser={handleUser} member={member} />
         ))}
       </section>
     </section>

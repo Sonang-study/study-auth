@@ -9,11 +9,14 @@ import tasks from './db/database.js';
 import userData from './db/users.js';
 import nowDate from './util/date';
 
+import mainTitle from './image/mainTheme.png';
+
 const Main = (props) => {
   const [togglePopup, setTogglePopup] = useState(false);
   const [todos, setTodos] = useState(tasks[0].taskDays);
   const [groups, setGroups] = useState(userData);
-  const [members, setMembers] = useState(groups);
+  const [groupName, setGroupName] = useState(groups[0].name);
+  const [members, setMembers] = useState(groups[0].users);
   const [pageDate, setPageDate] = useState(nowDate);
 
   const popupClick = () => {
@@ -43,16 +46,26 @@ const Main = (props) => {
     setPageDate(newDate);
   };
 
-  const handleGroup = (id) => {
-    const selectedGroup = groups.filter((group) => group.id == id);
-    setMembers(selectedGroup);
+  const handleGroup = (groupId) => {
+    const selectedGroup = groups.filter((group) => group.groupId == groupId);
+    setMembers(selectedGroup[0].users);
+    setGroupName(selectedGroup[0].name);
+    handleUser(selectedGroup[0].users[0].userId);
+  };
+
+  const handleUser = (userId) => {
+    const selectedTodos = tasks.filter((task) => task.userId == userId);
+    setTodos(selectedTodos[0]?.taskDays);
   };
 
   return (
     <section className={styles.main}>
       <header className={styles.header}>
-        <button className={styles.logoutBtn}>MyName</button>
-        <button className={styles.logoutBtn}>Log out</button>
+        <img src={mainTitle} alt='mainTitle' className={styles.mainTitle} />
+        <div>
+          <button className={styles.logoutBtn}>MyName</button>
+          <button className={styles.logoutBtn}>Log out</button>
+        </div>
       </header>
       <div className={styles.body}>
         <section className={styles.group}>
@@ -64,8 +77,9 @@ const Main = (props) => {
         </section>
         <section className={styles.member}>
           <Members
-            members={members[0].users}
-            groupName={members[0].name}
+            members={members}
+            groupName={groupName}
+            handleUser={handleUser}
             onPopupClick={popupClick}
           />
         </section>

@@ -14,8 +14,18 @@
   left: 0px;
 
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+}
+.mainTitle {
+  margin-left: 20px;
+  width: auto;
+  height: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+.mainTitle:hover {
+  transform: scale(1.03);
 }
 .group {
   display: flex;
