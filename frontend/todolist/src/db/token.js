@@ -1,13 +1,15 @@
 const TOKEN = 'token';
 
 export default class TokenStorage {
-  save(token) {
+  saveToken(token) {
     localStorage.setItem(TOKEN, token);
   }
-  get() {
-    localStorage.getItem(TOKEN);
+
+  getToken() {
+    return localStorage.getItem(TOKEN);
   }
-  clear() {
+
+  clearToken() {
     localStorage.removeItem(TOKEN);
   }
 }

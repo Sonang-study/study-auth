@@ -58,13 +58,20 @@ const Main = (props) => {
     setTodos(selectedTodos[0]?.taskDays);
   };
 
+  const onLogOut = () => {
+    localStorage.clear('token');
+    document.location.href = '/';
+  };
+
   return (
     <section className={styles.main}>
       <header className={styles.header}>
         <img src={mainTitle} alt='mainTitle' className={styles.mainTitle} />
         <div>
           <button className={styles.logoutBtn}>MyName</button>
-          <button className={styles.logoutBtn}>Log out</button>
+          <button onClick={onLogOut} className={styles.logoutBtn}>
+            Log out
+          </button>
         </div>
       </header>
       <div className={styles.body}>
