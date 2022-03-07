@@ -2,8 +2,11 @@ import React from 'react';
 import styles from "./member.module.css"
 
 
-const Member = ({ member }) => {
-  return <div className={styles.member}>{member.firstName}</div>;
+const Member = ({ handleUser, member }) => {
+  const selectUser =(e)=>{
+    handleUser(member.userId)
+  }
+  return <div onClick={selectUser} className={styles.member}>{member.firstName}</div>;
 };
 
 export default Member;
