@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CaslAbilityFactory } from 'src/casl/casl-ability.factory';
 import { AlreadyExistError } from 'src/common/errors/already-exist.error';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -16,20 +17,23 @@ export class TasksService {
     @InjectRepository(Task) private readonly tasks:Repository<Task>,
     @InjectRepository(TaskDay) private readonly taskDay:Repository<TaskDay>,
     @InjectRepository(User) private readonly users:Repository<User>,
+    private caslAbilityFactory: CaslAbilityFactory,
     ) {}
 
-    async getAll(): Promise<Task[]> {
-      return await this.tasks.find();
+    async getAll(userId: number | null, user): Promise<Task[]> {
+      if (!userId){
+        return await this.tasks.find({where: {userId: user.id}});
+      }
+      return await this.tasks.find({where: {userId}});
     }
 
-    async createTask({userId, date, plan}: CreateTaskDto): Promise<string> {
+    async createTask({date, plan}: CreateTaskDto, user): Promise<string> {
+      const exist = await this.tasks.findOne( {where: [{ date }, { userId: user.id }]});
 
-      // const exist = await this.tasks.findOne({date});
-      const user = await this.users.findOne({id: userId})
+      if(exist) {
+        throw new AlreadyExistError();
+      }
 
-      // if(exist) {
-      //   throw new AlreadyExistError();
-      // }
       await this.tasks.save(this.tasks.create({
         date,
         plan,
@@ -37,14 +41,16 @@ export class TasksService {
       return 'success create task'
     }
 
+    //해야 할 것
     async getOne(query): Promise<Task> {
       return await this.tasks.findOne(query, { relations: ['taskDays'] });
     }
 
-    async updateTask(id: number, { plan, image }: UpdateTaskDto): Promise<Task> {
-      const task = await this.tasks.findOne({id});
-      task.plan = plan;
-      task.image = image;
+    async updateTask(id: number, { plan, image }: UpdateTaskDto, user): Promise<Task> {
+      const taskForUpdate = await this.tasks.findOne({id});
+      const ability = this.caslAbilityFactory.PermissionForTask(user);
+      taskForUpdate.plan = plan;
+      taskForUpdate.image = image;
 
       return await this.tasks.save(task);
     }

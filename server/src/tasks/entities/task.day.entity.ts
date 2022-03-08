@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { Entity, Column, ManyToOne } from 'typeorm'
 import { Task } from './task.entity';
@@ -23,6 +23,14 @@ export class TaskDay extends CoreEntity {
   @Column()
   @IsString()
   dayPlan: string;
+
+  @ApiProperty({
+    example: '1',
+    description: '일일종합 할일 ID',
+  })
+  @Column({nullable: false})
+  @IsNumber()
+  taskId: number;
 
   @ManyToOne(() => Task, task => task.taskDays)
   task: Task

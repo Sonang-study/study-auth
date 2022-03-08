@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsOptional, IsString } from 'class-validator';
+import { IsDateString, IsNumber, IsOptional, IsString } from 'class-validator';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { Entity, Column, ManyToOne, OneToMany } from 'typeorm'
 import { User } from  '../../users/entities/user.entity'
@@ -31,6 +31,14 @@ export class Task extends CoreEntity {
   @IsString()
   @IsOptional()
   image: string;
+
+  @ApiProperty({
+    example: '1',
+    description: '유저 ID',
+  })
+  @Column({nullable: false})
+  @IsNumber()
+  userId: number;
 
   @ManyToOne(() => User, user => user.tasks)
   user: User
