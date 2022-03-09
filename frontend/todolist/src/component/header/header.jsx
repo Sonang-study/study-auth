@@ -2,9 +2,9 @@ import React, { memo } from 'react';
 import styles from './header.module.css';
 import mainTitle from '../../image/mainTheme.png';
 
-const Header = memo(({ setIsLogin }) => {
+const Header = memo(({ tokenStorage, setIsLogin }) => {
   const onLogOut = () => {
-    localStorage.clear('token');
+    tokenStorage.clearToken();
     setIsLogin(false);
   };
   return (

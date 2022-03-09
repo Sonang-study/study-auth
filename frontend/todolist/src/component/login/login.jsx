@@ -7,12 +7,12 @@ const Login = ({ authService, setIsLogin }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     if (signUp) {
-      authService.signup(firstName, lastName, email, password);
+      await authService.signup(firstName, lastName, email, password);
     } else {
-      authService.login(email, password);
+      await authService.login(email, password);
     }
     setIsLogin(true);
   };

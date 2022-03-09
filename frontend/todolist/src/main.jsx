@@ -10,7 +10,7 @@ import userData from './db/users.js';
 import nowDate from './util/date';
 import Header from './component/header/header';
 
-const Main = memo(({ setIsLogin }) => {
+const Main = memo(({ setIsLogin, tokenStorage, todoService }) => {
   const [togglePopup, setTogglePopup] = useState(false);
   const [todos, setTodos] = useState(tasks[0].taskDays);
   const [groups, setGroups] = useState(userData);
@@ -34,6 +34,9 @@ const Main = memo(({ setIsLogin }) => {
 
   const addTodo = (todo) => {
     setTodos([{ id: Date.now(), finishedAt: null, dayPlan: todo }, ...todos]);
+    todoService.addTodo(todo);
+    const something = todoService.viewDayTodos();
+    console.log(something);
   };
 
   const deleteTodo = (key) => {
@@ -59,7 +62,7 @@ const Main = memo(({ setIsLogin }) => {
 
   return (
     <section className={styles.main}>
-      <Header setIsLogin={setIsLogin} />
+      <Header tokenStorage={tokenStorage} setIsLogin={setIsLogin} />
       <div className={styles.body}>
         <section className={styles.group}>
           <Groups
