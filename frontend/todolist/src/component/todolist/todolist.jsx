@@ -1,6 +1,4 @@
 import React, { useRef, useState } from 'react';
-import tasks from '../../db/database';
-import nowDate from '../../util/date';
 import styles from './todolist.module.css';
 
 const TodoList = ({
@@ -70,16 +68,16 @@ const TodoList = ({
             />
           )}
           <ul className={styles.ul} onClick={handleClick}>
-            {todos.map((todo) =>
+            {todos.map((todo, index) =>
               !todo.finishedAt ? (
-                <li className={styles.list} data-key={todo.id}>
+                <li className={styles.list} key={index} data-key={todo.id}>
                   <button data-key={todo.id} className={styles.todoBtn}>
                     ✓
                   </button>
                   {todo.dayPlan}
                 </li>
               ) : (
-                <s>
+                <s key={index}>
                   <li className={styles.list} data-key={todo.id}>
                     <button data-key={todo.id} className={styles.todoBtn}>
                       ✓

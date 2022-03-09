@@ -17,12 +17,12 @@ const Weekly = (props) => {
         <span className={styles.span}>Weekly</span>
       </section>
       <section className={styles.body}>
-        {date.map((name) => (
-          <div>
+        {date.map((name, index) => (
+          <div key={index}>
             <span>{name.date}</span>
             <ul>
-              {name.todos.map((todo) => (
-                <li>{todo}</li>
+              {name.todos.map((todo, index) => (
+                <li key={index}>{todo}</li>
               ))}
             </ul>
           </div>

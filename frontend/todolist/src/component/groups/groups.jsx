@@ -18,8 +18,8 @@ const Groups = ({ groups, handleGroup, onPopupClick }) => {
         />
       </section>
       <section className={styles.group}>
-        {groups.map((group) => (
-          <Group handleGroup={handleGroup} group={group} />
+        {groups.map((group, index) => (
+          <Group handleGroup={handleGroup} key={index} group={group} />
         ))}
       </section>
     </div>

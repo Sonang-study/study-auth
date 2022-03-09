@@ -15,7 +15,7 @@ export default class AuthService {
         role: 'user',
       }),
     });
-    // this.tokenStorage.saveToken(data.access_token);
+    this.tokenStorage.saveToken(data.access_token);
     return data;
   }
 
