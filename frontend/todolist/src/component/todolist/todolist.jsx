@@ -21,8 +21,8 @@ const TodoList = memo(
 
     const handleClick = (e) => {
       if (e.target.tagName === 'LI') {
-        const key = e.target.dataset.key;
-        finishedTodo(key);
+        const { key, dayplan: dayPlan } = e.target.dataset;
+        finishedTodo(key, dayPlan);
       } else if (e.target.tagName === 'BUTTON') {
         const key = e.target.dataset.key;
         deleteTodo(key);
@@ -64,7 +64,12 @@ const TodoList = memo(
             <ul className={styles.ul} onClick={handleClick}>
               {todos.map((todo, index) =>
                 !todo.finishedAt ? (
-                  <li className={styles.list} key={index} data-key={todo.id}>
+                  <li
+                    className={styles.list}
+                    key={index}
+                    data-key={todo.id}
+                    data-dayplan={todo.dayPlan}
+                  >
                     <button data-key={todo.id} className={styles.todoBtn}>
                       ✓
                     </button>
@@ -72,7 +77,11 @@ const TodoList = memo(
                   </li>
                 ) : (
                   <s key={index}>
-                    <li className={styles.list} data-key={todo.id}>
+                    <li
+                      className={styles.list}
+                      data-key={todo.id}
+                      data-dayplan={todo.dayPlan}
+                    >
                       <button data-key={todo.id} className={styles.todoBtn}>
                         ✓
                       </button>

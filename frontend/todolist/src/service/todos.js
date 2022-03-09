@@ -3,14 +3,14 @@ export default class ToDoService {
     this.http = http;
     this.tokenStorage = tokenStorage;
   }
+
   async viewDayTodos(dayId = '1') {
     const token = this.tokenStorage.getToken();
     const data = await this.http.fetch(`/tasks/${dayId}/task-day`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(data,"data")
-    return data
+    return data;
   }
 
   async addTodo(dayPlan, dayId = '1') {
@@ -22,9 +22,19 @@ export default class ToDoService {
         dayPlan,
       }),
     });
-    console.log('SUCCESS ADD', dayId);
   }
 
+  async finishedTodo(taskId, dayPlan="did", dayId = '1') {
+    const token = this.tokenStorage.getToken();
+    await this.http.fetch(`/tasks/${dayId}/task-day/${taskId}`, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${token}` },
+      body: JSON.stringify({
+        finishedAt: Date.now().toString(),
+        dayPlan,
+      }),
+    });
+  }
   modifyTodo() {}
 
   deleteTodo() {}

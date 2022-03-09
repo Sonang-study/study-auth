@@ -9,7 +9,7 @@ export default class HttpClient {
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         ...options.headers,
       },
       credentials: 'include',
@@ -18,14 +18,14 @@ export default class HttpClient {
     try {
       data = await res.json();
     } catch (error) {
-      alert(error);
+      console.error(error);
     }
     if (res.status > 299 || res.status < 200) {
       const message =
         data && data.message ? data.message : 'Something went wrong';
       const error = new Error(message);
       if (res.status === 401) {
-        alert(data.message);
+        console.error(data.message);
         return;
       }
     }

@@ -23,7 +23,7 @@
 
 .body {
   display: flex;
-  height: 100%;
+  height: 90%;
 }
 .todo {
   flex: 1 1 50%;
@@ -49,6 +49,8 @@
 }
 .ul {
   flex: 1 1 50%;
+  height: 90%;
+  overflow: scroll;
 }
 .list {
   cursor: pointer;

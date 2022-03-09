@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import styles from './main.module.css';
 import Groups from './component/groups/groups';
 import Members from './component/members/members';
@@ -12,17 +12,21 @@ import Header from './component/header/header';
 
 const Main = memo(({ setIsLogin, tokenStorage, todoService }) => {
   const [togglePopup, setTogglePopup] = useState(false);
-  const [todos, setTodos] = useState(tasks[0].taskDays);
+  const [todos, setTodos] = useState([]);
   const [groups, setGroups] = useState(userData);
   const [groupName, setGroupName] = useState(groups[0].name);
   const [members, setMembers] = useState(groups[0].users);
   const [pageDate, setPageDate] = useState(nowDate);
 
+  useEffect(async () => {
+    await todoService.viewDayTodos().then((data) => setTodos(data));
+  }, []);
+
   const popupClick = () => {
     setTogglePopup(!togglePopup);
   };
 
-  const finishedTodo = (key) => {
+  const finishedTodo = async (key, dayPlan) => {
     const newTodos = todos.map((todo) => {
       if (String(todo.id) === String(key)) {
         todo.finishedAt = todo.finishedAt ? null : Date.now();
@@ -30,13 +34,13 @@ const Main = memo(({ setIsLogin, tokenStorage, todoService }) => {
       return todo;
     });
     setTodos(newTodos);
+    await todoService.finishedTodo(key, dayPlan);
   };
 
-  const addTodo = (todo) => {
+  const addTodo = async (todo) => {
     setTodos([{ id: Date.now(), finishedAt: null, dayPlan: todo }, ...todos]);
-    todoService.addTodo(todo);
-    const something = todoService.viewDayTodos();
-    console.log(something);
+    await todoService.addTodo(todo);
+    await todoService.viewDayTodos().then((data) => setTodos(data));
   };
 
   const deleteTodo = (key) => {
