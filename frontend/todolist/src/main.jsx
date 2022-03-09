@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import styles from './main.module.css';
 import Groups from './component/groups/groups';
 import Members from './component/members/members';
@@ -8,10 +8,9 @@ import AddGroup from './component/popup/addGroup/addGroup';
 import tasks from './db/database.js';
 import userData from './db/users.js';
 import nowDate from './util/date';
+import Header from './component/header/header';
 
-import mainTitle from './image/mainTheme.png';
-
-const Main = ({ setIsLogin }) => {
+const Main = memo(({ setIsLogin }) => {
   const [togglePopup, setTogglePopup] = useState(false);
   const [todos, setTodos] = useState(tasks[0].taskDays);
   const [groups, setGroups] = useState(userData);
@@ -58,22 +57,9 @@ const Main = ({ setIsLogin }) => {
     setTodos(selectedTodos[0]?.taskDays);
   };
 
-  const onLogOut = () => {
-    localStorage.clear('token');
-    setIsLogin(false);
-  };
-
   return (
     <section className={styles.main}>
-      <header className={styles.header}>
-        <img src={mainTitle} alt='mainTitle' className={styles.mainTitle} />
-        <div>
-          <button className={styles.logoutBtn}>MyName</button>
-          <button onClick={onLogOut} className={styles.logoutBtn}>
-            Log out
-          </button>
-        </div>
-      </header>
+      <Header setIsLogin={setIsLogin} />
       <div className={styles.body}>
         <section className={styles.group}>
           <Groups
@@ -106,6 +92,6 @@ const Main = ({ setIsLogin }) => {
       </div>
     </section>
   );
-};
+});
 
 export default Main;

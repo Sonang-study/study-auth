@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import styles from './login.module.css';
 const Login = ({ authService, setIsLogin }) => {
   const [signUp, setSignUp] = useState(false);
@@ -7,8 +7,8 @@ const Login = ({ authService, setIsLogin }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (event) => {
+    event.preventDefault();
     if (signUp) {
       authService.signup(firstName, lastName, email, password);
     } else {
@@ -65,6 +65,7 @@ const Login = ({ authService, setIsLogin }) => {
             value={firstName}
             onChange={onChange}
             className={styles.id}
+            required
           />
         )}
         {signUp && (
@@ -75,6 +76,7 @@ const Login = ({ authService, setIsLogin }) => {
             value={lastName}
             onChange={onChange}
             className={styles.password}
+            required
           />
         )}
         <div className='form-signup'>
