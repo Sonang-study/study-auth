@@ -6,18 +6,13 @@ import Main from './main';
 function App({ authService, tokenStorage }) {
   const [isLogin, setIsLogin] = useState(false);
 
-  useEffect(() => {
-    if (tokenStorage.getToken() === null) {
-      console.log('isLogin ?? ::', isLogin);
-    } else {
-      setIsLogin(true);
-      console.log('isLogin ?? ::', isLogin);
-    }
-  });
-
   return (
     <div className={styles.app}>
-      {!isLogin ? <Login authService={authService} /> : <Main />}
+      {!isLogin ? (
+        <Login authService={authService} setIsLogin={setIsLogin} />
+      ) : (
+        <Main setIsLogin={setIsLogin} />
+      )}
     </div>
   );
 }

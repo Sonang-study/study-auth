@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 import styles from './login.module.css';
-const Login = ({ authService }) => {
+const Login = ({ authService, setIsLogin }) => {
   const [noId, setNoId] = useState(true);
   const emailRef = useRef();
   const passRef = useRef();
   const fNameRef = useRef();
   const lNameRef = useRef();
+
   const onClickSignup = () => {
     setNoId(!noId);
   };
@@ -15,12 +16,15 @@ const Login = ({ authService }) => {
     const firstName = fNameRef.current.value;
     const lastName = lNameRef.current.value;
     authService.signup(firstName, lastName, email, password);
+    setIsLogin(true);
   };
   const onLogin = () => {
     const email = emailRef.current.value;
     const password = passRef.current.value;
     authService.login(email, password);
+    setIsLogin(true);
   };
+
   return (
     <section className={styles.login}>
       <form className={styles.mailLogin} onSubmit={onSign}>
@@ -54,7 +58,10 @@ const Login = ({ authService }) => {
         )}
       </form>
       <div className={styles.ssoLogin}>
-        <button onClick={noId?onClickSignup:onSign} className={styles.googleBtn}>
+        <button
+          onClick={noId ? onClickSignup : onSign}
+          className={styles.googleBtn}
+        >
           Sign Up
         </button>
         <button onClick={onLogin} className={styles.googleBtn}>

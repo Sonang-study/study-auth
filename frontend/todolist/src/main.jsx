@@ -11,7 +11,7 @@ import nowDate from './util/date';
 
 import mainTitle from './image/mainTheme.png';
 
-const Main = (props) => {
+const Main = ({ setIsLogin }) => {
   const [togglePopup, setTogglePopup] = useState(false);
   const [todos, setTodos] = useState(tasks[0].taskDays);
   const [groups, setGroups] = useState(userData);
@@ -60,7 +60,7 @@ const Main = (props) => {
 
   const onLogOut = () => {
     localStorage.clear('token');
-    document.location.href = '/';
+    setIsLogin(false);
   };
 
   return (
