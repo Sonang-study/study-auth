@@ -12,6 +12,7 @@ import Header from './component/header/header';
 
 const Main = memo(({ setIsLogin, tokenStorage, todoService }) => {
   const [togglePopup, setTogglePopup] = useState(false);
+  const [myId, setMyId] = useState('');
   const [todos, setTodos] = useState([]);
   const [groups, setGroups] = useState(userData);
   const [groupName, setGroupName] = useState(groups[0].name);
@@ -20,6 +21,7 @@ const Main = memo(({ setIsLogin, tokenStorage, todoService }) => {
 
   useEffect(async () => {
     await todoService.viewDayTodos().then((data) => setTodos(data));
+    setMyId()
   }, []);
 
   const popupClick = () => {

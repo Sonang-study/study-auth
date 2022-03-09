@@ -13,9 +13,9 @@ export default class ToDoService {
     return data;
   }
 
-  async addTodo(dayPlan, dayId = '1') {
+  async addTodo(dayPlan, userId = '1') {
     const token = this.tokenStorage.getToken();
-    await this.http.fetch(`/tasks/${dayId}/task-day`, {
+    await this.http.fetch(`/tasks/${userId}/task-day`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({
@@ -24,9 +24,9 @@ export default class ToDoService {
     });
   }
 
-  async finishedTodo(taskId, dayPlan="did", dayId = '1') {
+  async finishedTodo(taskId, dayPlan="did", userId = '1') {
     const token = this.tokenStorage.getToken();
-    await this.http.fetch(`/tasks/${dayId}/task-day/${taskId}`, {
+    await this.http.fetch(`/tasks/${userId}/task-day/${taskId}`, {
       method: 'PUT',
       headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({
@@ -35,6 +35,7 @@ export default class ToDoService {
       }),
     });
   }
+  
   modifyTodo() {}
 
   deleteTodo() {}

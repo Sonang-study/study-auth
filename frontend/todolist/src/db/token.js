@@ -1,4 +1,6 @@
 const TOKEN = 'token';
+const USERID = "userId";
+
 
 export default class TokenStorage {
   saveToken(token) {
