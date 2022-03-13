@@ -1,20 +1,33 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
+import Banner from '../banner/banner';
 import styles from './login.module.css';
 const Login = ({ authService, setIsLogin }) => {
+  const [isError, setIsError] = useState(false);
   const [signUp, setSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [text, setText] = useState('');
 
   const onSubmit = async (event) => {
     event.preventDefault();
     if (signUp) {
-      await authService.signup(firstName, lastName, email, password);
+      await authService
+        .signup(firstName, lastName, email, password)
+        .then(() => setIsLogin(true))
+        .catch((error) => setError(error));
     } else {
-      await authService.login(email, password);
+      await authService
+        .login(email, password)
+        .then(() => setIsLogin(true))
+        .catch((error) => setError(error));
     }
-    setIsLogin(true);
+  };
+
+  const setError = (error) => {
+    setText(error.toString());
+    setIsError(true);
   };
 
   const onChange = (event) => {
@@ -38,6 +51,7 @@ const Login = ({ authService, setIsLogin }) => {
 
   return (
     <section className={styles.login}>
+      <Banner text={text} isError={isError} />
       <form className={styles.mailLogin} onSubmit={onSubmit}>
         <input
           name='email'

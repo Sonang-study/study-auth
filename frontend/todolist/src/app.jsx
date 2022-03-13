@@ -7,12 +7,15 @@ function App({ authService, tokenStorage, todoService }) {
   const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
+    console.log('FUCCK');
     if (tokenStorage.getToken()) {
+      console.log('set true');
       setIsLogin(true);
     } else {
+      console.log('set false');
       setIsLogin(false);
     }
-  });
+  }, [tokenStorage]);
 
   return (
     <div className={styles.app}>

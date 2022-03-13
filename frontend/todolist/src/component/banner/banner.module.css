@@ -1,0 +1,15 @@
+.banner {
+  margin: 0px;
+  margin-bottom: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: red;
+}
+
+.banner-red {
+  background-color: red;
+}
+
+.banner-green {
+  background-color: green;
+}

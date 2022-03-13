@@ -22,12 +22,13 @@ export default class HttpClient {
     }
     if (res.status > 299 || res.status < 200) {
       const message =
-        data && data.message ? data.message : 'Something went wrong';
-      const error = new Error(message);
-      if (res.status === 401) {
-        console.error(data.message);
-        return;
-      }
+        data && data.error ? data.error.message : 'Something went wrong';
+      console.log('Throw Error');
+      throw new Error(message);
+      // if (res.status === 401) {
+      //   console.error(data.message);
+      //   return;
+      // }
     }
     return data;
   }
