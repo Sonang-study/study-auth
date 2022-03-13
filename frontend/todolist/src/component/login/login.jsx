@@ -1,66 +1,101 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import styles from './login.module.css';
-const Login = ({ authService }) => {
-  const [noId, setNoId] = useState(true);
-  const emailRef = useRef();
-  const passRef = useRef();
-  const fNameRef = useRef();
-  const lNameRef = useRef();
-  const onClickSignup = () => {
-    setNoId(!noId);
+const Login = ({ authService, setIsLogin }) => {
+  const [signUp, setSignUp] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    if (signUp) {
+      await authService.signup(firstName, lastName, email, password);
+    } else {
+      await authService.login(email, password);
+    }
+    setIsLogin(true);
   };
-  const onSign = (e) => {
-    const email = emailRef.current.value;
-    const password = passRef.current.value;
-    const firstName = fNameRef.current.value;
-    const lastName = lNameRef.current.value;
-    authService.signup(firstName, lastName, email, password);
+
+  const onChange = (event) => {
+    const {
+      target: { name, value, checked },
+    } = event;
+    switch (name) {
+      case 'email':
+        return setEmail(value);
+      case 'password':
+        return setPassword(value);
+      case 'firstName':
+        return setFirstName(value);
+      case 'lastName':
+        return setLastName(value);
+      case 'signup':
+        return setSignUp(checked);
+      default:
+    }
   };
-  const onLogin = () => {
-    const email = emailRef.current.value;
-    const password = passRef.current.value;
-    authService.login(email, password);
-  };
+
   return (
     <section className={styles.login}>
-      <form className={styles.mailLogin} onSubmit={onSign}>
+      <form className={styles.mailLogin} onSubmit={onSubmit}>
         <input
+          name='email'
           type='email'
-          ref={emailRef}
-          className={styles.id}
           placeholder='Email'
+          value={email}
+          onChange={onChange}
+          className={styles.id}
+          required
         />
         <input
+          name='password'
           type='password'
-          ref={passRef}
-          className={styles.id}
           placeholder='PASSWORD'
+          value={password}
+          onChange={onChange}
+          className={styles.id}
+          required
         />
-        {!noId && (
+        {signUp && (
           <input
+            name='firstName'
             type='text'
-            ref={fNameRef}
-            className={styles.id}
             placeholder='FirstName'
+            value={firstName}
+            onChange={onChange}
+            className={styles.id}
+            required
           />
         )}
-        {!noId && (
+        {signUp && (
           <input
+            name='lastName'
             type='text'
-            ref={lNameRef}
-            className={styles.password}
             placeholder='LastName'
+            value={lastName}
+            onChange={onChange}
+            className={styles.password}
+            required
           />
         )}
+        <div className='form-signup'>
+          <input
+            name='signup'
+            id='signup'
+            type='checkbox'
+            onChange={onChange}
+            checked={signUp}
+          />
+          <label htmlFor='signup'> Create a new account?</label>
+        </div>
+
+        <div className={styles.ssoLogin}>
+          <button type='submit' className={styles.googleBtn}>
+            {signUp ? 'Sign Up' : 'Sign In'}
+          </button>
+        </div>
       </form>
-      <div className={styles.ssoLogin}>
-        <button onClick={noId?onClickSignup:onSign} className={styles.googleBtn}>
-          Sign Up
-        </button>
-        <button onClick={onLogin} className={styles.googleBtn}>
-          Sign In
-        </button>
-      </div>
     </section>
   );
 };

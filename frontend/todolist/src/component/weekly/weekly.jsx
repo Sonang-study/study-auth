@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import styles from './weekly.module.css';
 
-const Weekly = (props) => {
+const Weekly = memo((props) => {
   const [date, setDate] = useState([
     { date: 'Mon', todos: ['one', 'two', 'three', 'four'] },
     { date: 'Tues', todos: ['one', 'two', 'three', 'four'] },
@@ -14,15 +14,15 @@ const Weekly = (props) => {
   return (
     <section className={styles.weekly}>
       <section className={styles.header}>
-        <span className={styles.span}>Weekly</span>
+        <span className={styles.title}>Weekly</span>
       </section>
       <section className={styles.body}>
-        {date.map((name) => (
-          <div>
+        {date.map((name, index) => (
+          <div key={index}>
             <span>{name.date}</span>
             <ul>
-              {name.todos.map((todo) => (
-                <li>{todo}</li>
+              {name.todos.map((todo, index) => (
+                <li key={index}>{todo}</li>
               ))}
             </ul>
           </div>
@@ -30,6 +30,6 @@ const Weekly = (props) => {
       </section>
     </section>
   );
-};
+});
 
 export default Weekly;

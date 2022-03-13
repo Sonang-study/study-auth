@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styles from './members.module.css';
 import Member from '../member/member';
 
-const Members = ({ members, groupName,handleUser, onPopupClick }) => {
+const Members = memo(({ members, groupName, handleUser, onPopupClick }) => {
   const onAddMember = () => {
     onPopupClick();
   };
@@ -20,12 +20,12 @@ const Members = ({ members, groupName,handleUser, onPopupClick }) => {
         />
       </section>
       <section className={styles.member}>
-        {members.map((member) => (
-          <Member handleUser={handleUser} member={member} />
+        {members.map((member, index) => (
+          <Member handleUser={handleUser} key={index} member={member} />
         ))}
       </section>
     </section>
   );
-};
+});
 
 export default Members;

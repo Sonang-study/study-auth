@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import styles from './main.module.css';
 import Groups from './component/groups/groups';
 import Members from './component/members/members';
@@ -8,22 +8,27 @@ import AddGroup from './component/popup/addGroup/addGroup';
 import tasks from './db/database.js';
 import userData from './db/users.js';
 import nowDate from './util/date';
+import Header from './component/header/header';
 
-import mainTitle from './image/mainTheme.png';
-
-const Main = (props) => {
+const Main = memo(({ setIsLogin, tokenStorage, todoService }) => {
   const [togglePopup, setTogglePopup] = useState(false);
-  const [todos, setTodos] = useState(tasks[0].taskDays);
+  const [myId, setMyId] = useState('');
+  const [todos, setTodos] = useState([]);
   const [groups, setGroups] = useState(userData);
   const [groupName, setGroupName] = useState(groups[0].name);
   const [members, setMembers] = useState(groups[0].users);
   const [pageDate, setPageDate] = useState(nowDate);
 
+  useEffect(async () => {
+    await todoService.viewDayTodos().then((data) => setTodos(data));
+    setMyId()
+  }, []);
+
   const popupClick = () => {
     setTogglePopup(!togglePopup);
   };
 
-  const finishedTodo = (key) => {
+  const finishedTodo = async (key, dayPlan) => {
     const newTodos = todos.map((todo) => {
       if (String(todo.id) === String(key)) {
         todo.finishedAt = todo.finishedAt ? null : Date.now();
@@ -31,10 +36,13 @@ const Main = (props) => {
       return todo;
     });
     setTodos(newTodos);
+    await todoService.finishedTodo(key, dayPlan);
   };
 
-  const addTodo = (todo) => {
+  const addTodo = async (todo) => {
     setTodos([{ id: Date.now(), finishedAt: null, dayPlan: todo }, ...todos]);
+    await todoService.addTodo(todo);
+    await todoService.viewDayTodos().then((data) => setTodos(data));
   };
 
   const deleteTodo = (key) => {
@@ -58,22 +66,9 @@ const Main = (props) => {
     setTodos(selectedTodos[0]?.taskDays);
   };
 
-  const onLogOut = () => {
-    localStorage.clear('token');
-    document.location.href = '/';
-  };
-
   return (
     <section className={styles.main}>
-      <header className={styles.header}>
-        <img src={mainTitle} alt='mainTitle' className={styles.mainTitle} />
-        <div>
-          <button className={styles.logoutBtn}>MyName</button>
-          <button onClick={onLogOut} className={styles.logoutBtn}>
-            Log out
-          </button>
-        </div>
-      </header>
+      <Header tokenStorage={tokenStorage} setIsLogin={setIsLogin} />
       <div className={styles.body}>
         <section className={styles.group}>
           <Groups
@@ -106,6 +101,6 @@ const Main = (props) => {
       </div>
     </section>
   );
-};
+});
 
 export default Main;

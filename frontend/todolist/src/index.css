@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: "study_regular";
+  font-family: 'study_regular';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -13,4 +13,8 @@ code {
 @font-face {
   font-family: 'study_regular';
   src: url('./fonts/EliceDigitalBaeum_Regular.ttf');
+}
+@font-face {
+  font-family: 'study_bold';
+  src: url('./fonts/EliceDigitalBaeum_Bold.ttf');
 }

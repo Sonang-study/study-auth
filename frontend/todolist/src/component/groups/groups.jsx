@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styles from './groups.module.css';
 import Group from '../group/group';
 
-const Groups = ({ groups, handleGroup, onPopupClick }) => {
+const Groups = memo(({ groups, handleGroup, onPopupClick }) => {
   const onAddGroup = () => {
     onPopupClick();
   };
@@ -18,12 +18,12 @@ const Groups = ({ groups, handleGroup, onPopupClick }) => {
         />
       </section>
       <section className={styles.group}>
-        {groups.map((group) => (
-          <Group handleGroup={handleGroup} group={group} />
+        {groups.map((group, index) => (
+          <Group handleGroup={handleGroup} key={index} group={group} />
         ))}
       </section>
     </div>
   );
-};
+});
 
 export default Groups;
