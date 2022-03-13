@@ -5,6 +5,7 @@
   flex-direction: column;
   position: relative;
   padding-top: 60px;
+  min-width:800px;
 }
 
 .group {

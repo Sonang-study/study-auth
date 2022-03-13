@@ -14,7 +14,7 @@ const Weekly = memo((props) => {
   return (
     <section className={styles.weekly}>
       <section className={styles.header}>
-        <span className={styles.span}>Weekly</span>
+        <span className={styles.title}>Weekly</span>
       </section>
       <section className={styles.body}>
         {date.map((name, index) => (

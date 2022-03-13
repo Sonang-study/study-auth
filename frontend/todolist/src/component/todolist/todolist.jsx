@@ -4,6 +4,7 @@ import styles from './todolist.module.css';
 const TodoList = memo(
   ({ todos, pageDate, finishedTodo, addTodo, deleteTodo, handlePageDate }) => {
     const [onInput, setOnInput] = useState(false);
+    const [fileImage, setFileImage] = useState('');
     const inputValue = useRef(null);
     const dateForm = useRef(null);
 
@@ -26,17 +27,26 @@ const TodoList = memo(
       } else if (e.target.tagName === 'BUTTON') {
         const key = e.target.dataset.key;
         deleteTodo(key);
+      } else if (e.target.tagName === 'UL' || 'SECTION') {
+        handleInput();
       }
     };
 
     const handleChange = (e) => {
       handlePageDate(dateForm.current.value);
     };
-
+    const onChange = () => {};
+    const saveFileImage = (e) => {
+      setFileImage(URL.createObjectURL(e.target.files[0]));
+    };
+    const deleteFileImage = () => {
+      URL.revokeObjectURL(fileImage);
+      setFileImage('');
+    };
     return (
       <section className={styles.todolist}>
         <section className={styles.header}>
-          <span className={styles.span}>Todolist</span>
+          <span className={styles.title}>Todolist</span>
           <div>
             <input
               type='date'
@@ -51,7 +61,7 @@ const TodoList = memo(
           </div>
         </section>
         <section className={styles.body}>
-          <section className={styles.todo}>
+          <section className={styles.todo} onClick={handleClick}>
             {onInput && (
               <input
                 type='text'
@@ -61,11 +71,11 @@ const TodoList = memo(
                 onKeyPress={handleKeyPress}
               />
             )}
-            <ul className={styles.ul} onClick={handleClick}>
+            <ul className={styles.todo_lists}>
               {todos.map((todo, index) =>
                 !todo.finishedAt ? (
                   <li
-                    className={styles.list}
+                    className={styles.todo_list}
                     key={index}
                     data-key={todo.id}
                     data-dayplan={todo.dayPlan}
@@ -76,24 +86,31 @@ const TodoList = memo(
                     {todo.dayPlan}
                   </li>
                 ) : (
-                  <s key={index}>
-                    <li
-                      className={styles.list}
-                      data-key={todo.id}
-                      data-dayplan={todo.dayPlan}
-                    >
-                      <button data-key={todo.id} className={styles.todoBtn}>
-                        ✓
-                      </button>
-                      {todo.dayPlan}
-                    </li>
-                  </s>
+                  <li
+                    className={styles.todo_list}
+                    key={index}
+                    data-key={todo.id}
+                    data-dayplan={todo.dayPlan}
+                  >
+                    <button data-key={todo.id} className={styles.todoBtn}>
+                      ✓
+                    </button>
+                    <s>{todo.dayPlan}</s>
+                  </li>
                 )
               )}
             </ul>
           </section>
           <section className={styles.memo}>
-            <span>Memo</span>
+            <span>Auth</span>
+            <input
+              name='imgUpload'
+              type='file'
+              accept='image/*'
+              onChange={saveFileImage}
+            />
+            <button onClick={() => deleteFileImage()}>Delete</button>
+            {fileImage && <img alt='sample' src={fileImage} />}
           </section>
         </section>
       </section>
