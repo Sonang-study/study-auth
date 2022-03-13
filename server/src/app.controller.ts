@@ -1,28 +1,28 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiOperation } from '@nestjs/swagger';
-import { AuthService } from './auth/auth.service';
-import { LocalAuthGuard } from './auth/local/local-auth.guard';
-import { CreateUserDto } from './users/dtos/createUser.dto';
-import { LoginUserDto } from './users/dtos/loginUser.dto.ts';
-import { UsersService } from './users/users.service';
+import { Body, Controller, Post, Request, UseGuards } from "@nestjs/common";
+import { ApiBody, ApiOperation } from "@nestjs/swagger";
+import { AuthService } from "./auth/auth.service";
+import { LocalAuthGuard } from "./auth/local/local-auth.guard";
+import { CreateUserDto } from "./users/dtos/createUser.dto";
+import { LoginUserDto } from "./users/dtos/loginUser.dto.ts";
+import { UsersService } from "./users/users.service";
 
 @Controller()
 export class AppController {
   constructor(
     private authService: AuthService,
-    private usersService: UsersService,
-    ){}
+    private usersService: UsersService
+  ) {}
 
   @ApiBody({ type: [LoginUserDto] })
-  @ApiOperation({ summary:'로그인' })
+  @ApiOperation({ summary: "로그인" })
   @UseGuards(LocalAuthGuard)
-  @Post('auth/login')
+  @Post("auth/login")
   async login(@Request() req) {
     return this.authService.responseJWT(req.user);
   }
   @ApiBody({ type: [CreateUserDto] })
-  @ApiOperation({summary:'회원가입'})
-  @Post('auth/siginup')
+  @ApiOperation({ summary: "회원가입" })
+  @Post("auth/signup")
   async createUser(@Body() createUserDto: CreateUserDto) {
     return await this.usersService.create(createUserDto);
   }
