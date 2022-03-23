@@ -5,6 +5,7 @@ import { Task } from '../../tasks/entities/task.entity'
 import * as bcrypt from 'bcrypt'
 import { InternalServerErrorException } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
+import { Group } from 'src/group/entities/group.entity';
 
 enum SignupMethod {
   local = 'local',
@@ -73,6 +74,9 @@ export class User extends CoreEntity {
 
   @OneToMany(type => Task, task => task.user)
   tasks: Task[];
+
+  @OneToMany(type => Group, group => group.masterUser)
+  groupMaster: Group[];
 
   @BeforeUpdate()
   @BeforeInsert()
