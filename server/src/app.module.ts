@@ -11,6 +11,7 @@ import { LoggerMiddleware } from './logger.middleware';
 import { SwaggerModule } from '@nestjs/swagger';
 import { AuthModule } from './auth/auth.module';
 import { CaslModule } from './casl/casl.module';
+import { GroupModule } from './group/group.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { CaslModule } from './casl/casl.module';
     SwaggerModule,
     AuthModule,
     CaslModule,
+    GroupModule,
   ],
   controllers: [AppController],
   providers: [AppService],
