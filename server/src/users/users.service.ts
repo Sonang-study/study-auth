@@ -4,6 +4,7 @@ import { AuthService } from "src/auth/auth.service";
 import { Action } from "src/casl/action.enum";
 import { CaslAbilityFactory } from "src/casl/casl-ability.factory";
 import { AlreadyExistError } from "src/common/errors/already-exist.error";
+import { DoesNotExistError } from "src/common/errors/doesNot-exist.error";
 import { UnAuthorizedError } from "src/common/errors/unAuthorized.error";
 import { Repository } from "typeorm";
 import { CreateUserDto } from "./dtos/createUser.dto";
@@ -30,7 +31,7 @@ export class UsersService {
     email,
     password,
   }: CreateUserDto): Promise<object> {
-    const exists = await this.users.findOne({ email });
+    const exists = await this.users.findOne({where: { email }});
 
     if (exists) {
       throw new AlreadyExistError();
@@ -48,7 +49,9 @@ export class UsersService {
   }
 
   async getOne(id): Promise<User> {
-    return await this.users.findOne(id, { relations: ["tasks"] });
+    const result = await this.users.findOne({ where: { id }, relations: ["tasks"] });
+    if(!result) throw new DoesNotExistError();
+    return result;
   }
 
   async updateOne(
