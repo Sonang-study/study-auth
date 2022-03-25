@@ -1,6 +1,6 @@
 import { IsEmail, isEmpty, IsOptional, IsString } from 'class-validator';
 import { CoreEntity } from 'src/common/entities/core.entity';
-import { Entity, Column, OneToMany, BeforeInsert, BeforeUpdate } from 'typeorm'
+import { Entity, Column, OneToMany, BeforeInsert, BeforeUpdate, ManyToMany, JoinTable } from 'typeorm'
 import { Task } from '../../tasks/entities/task.entity'
 import * as bcrypt from 'bcrypt'
 import { InternalServerErrorException } from '@nestjs/common';
@@ -77,6 +77,10 @@ export class User extends CoreEntity {
 
   @OneToMany(type => Group, group => group.masterUser)
   groupMaster: Group[];
+
+  @ManyToMany(type => Group, (group) => group.users)
+  @JoinTable()
+  groups: Group[];
 
   @BeforeUpdate()
   @BeforeInsert()

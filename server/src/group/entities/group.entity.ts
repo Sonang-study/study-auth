@@ -2,7 +2,7 @@ import { IsNumber, IsString } from 'class-validator';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { InternalServerErrorException } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { BeforeInsert, Column, Entity, ManyToOne } from 'typeorm';
+import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
 
 @Entity()
@@ -13,7 +13,7 @@ export class Group extends CoreEntity {
   })
   @Column()
   @IsString()
-  Name: string;
+  name: string;
 
   @ApiProperty({
     example: "1",
@@ -42,5 +42,8 @@ export class Group extends CoreEntity {
 
   @ManyToOne(() => User, (user) => user.groupMaster)
   masterUser: User;
+
+  @ManyToMany(() => User, (user) => user.groups)
+  users: User[];
 
 }
