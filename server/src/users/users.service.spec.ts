@@ -7,8 +7,9 @@ import { getRepositoryToken } from '@nestjs/typeorm'
 import { User } from "./entities/user.entity";
 import { CreateUserDto } from './dtos/createUser.dto';
 import { AlreadyExistError } from "src/common/errors/already-exist.error";
-import { number } from 'joi';
+import { number, string } from 'joi';
 import { DoesNotExistError } from 'src/common/errors/doesNot-exist.error';
+import { idText } from 'typescript';
 
 enum SignupMethod {
   local = 'local',
@@ -45,10 +46,12 @@ class MockUsersRepository {
   create = jest.fn().mockResolvedValue(mockUser)
   save = jest.fn().mockResolvedValue(mockUser)
 
-  async findOne(condition: { where: { id?:string, email?:string }}) {
-    const where = condition.where;
+  async findOne(condition) {
     const {password, ...mockUserWithoutPassword} = mockUser;
 
+    if (condition == +mockUserId) return mockUserWithoutPassword
+
+    const where = condition.where;
     if (where?.id == mockUserId) return mockUserWithoutPassword
     else if (where?.email === mockUser.email) return mockUserWithoutPassword
     else return null
@@ -125,13 +128,13 @@ describe('UsersService', () => {
       expect(usersService.create).toBeDefined()
     })
 
-    it('유저 정보의 이메일은 유일해야 하므로 중복 이메일 검사', async () => {
+    it('중복 이메일 입력시 AlreadyExistError반환', async () => {
       await expect(
         usersService.create(existedUser),
       ).rejects.toThrowError(new AlreadyExistError())
     })
 
-    it('유저 정보를 인자로 받고 새로운 유저를 생성하고 아무것도 반환하지 않는다.', async () => {
+    it('유저 정보를 인자로 받고 새로운 유저를 생성하고 토큰 반환.', async () => {
       await expect(usersService.create(newUser)).resolves.toBe(mockJwt)
     })
   })
@@ -140,7 +143,7 @@ describe('UsersService', () => {
     it('getMe 함수 정의', () => {
       expect(usersService.getMe).toBeDefined()
     })
-    it('실제 내 정보 가져오기', async () => {
+    it('실제 내 정보 반환', async () => {
       const {password, ...mockUserWithoutPassword} = mockUser;
       await expect(usersService.getMe(existedUser)).resolves.toEqual(mockUserWithoutPassword)
     })
@@ -150,13 +153,21 @@ describe('UsersService', () => {
     it('getOne 함수 정의', () => {
       expect(usersService.getOne).toBeDefined()
     })
-    it('없는 유저의 id로 검색했을 경우', async () => {
+    it('없는 유저의 id로 검색했을 경우 DoesNotExist에러 반환', async () => {
       await expect(usersService.getOne(2)).rejects.toThrowError(new DoesNotExistError())
     })
-    it('존재하는 유저의 id로 검색했을 경우', async () => {
+    it('존재하는 유저의 id로 검색했을 경우 유저정보 반환', async () => {
       const {password, ...mockUserWithoutPassword} = mockUser;
       await expect(usersService.getOne(mockUserId)).resolves.toEqual(mockUserWithoutPassword)
     })
-    
   })
+    describe('유저 업데이트', async () => {
+      it('내 정보 수정하는 경우 정보 수정' async () => {
+
+      })
+    
+      it('다른 유저 정보 수정하는 경우 UnAuthorizedError에러 반환' async () => {
+          
+      })
+    })
 });

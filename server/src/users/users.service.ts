@@ -49,7 +49,7 @@ export class UsersService {
   }
 
   async getOne(id): Promise<User> {
-    const result = await this.users.findOne({ where: { id }, relations: ["tasks"] });
+    const result = await this.users.findOne(id, { relations: ["tasks"] });
     if(!result) throw new DoesNotExistError();
     return result;
   }
