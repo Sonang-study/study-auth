@@ -161,13 +161,23 @@ describe('UsersService', () => {
       await expect(usersService.getOne(mockUserId)).resolves.toEqual(mockUserWithoutPassword)
     })
   })
-    describe('유저 업데이트', async () => {
-      it('내 정보 수정하는 경우 정보 수정' async () => {
+  describe('유저 업데이트', async () => {
+    it('내 정보 수정하는 경우 정보 수정 및 수정데이터 반환' async () => {
 
-      })
-    
-      it('다른 유저 정보 수정하는 경우 UnAuthorizedError에러 반환' async () => {
-          
-      })
     })
+  
+    it('다른 유저 정보 수정하는 경우 UnAuthorizedError에러 반환' async () => {
+        
+    })
+  })
+
+  describe('유저 삭제', async () => {
+    it('내 정보 삭제하는 경우 삭제 가능 및 success delete 문자열 반환 ' async () => {
+
+    })
+  
+    it('다른 유저 정보 수정하는 경우 UnAuthorizedError에러 반환' async () => {
+        
+    })
+  })
 });
