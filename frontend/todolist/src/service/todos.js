@@ -4,9 +4,9 @@ export default class ToDoService {
     this.tokenStorage = tokenStorage;
   }
 
-  async viewDayTodos(dayId = '1') {
+  async viewDayTodos(userId = '1') {
     const token = this.tokenStorage.getToken();
-    const data = await this.http.fetch(`/tasks/${dayId}/task-day`, {
+    const data = await this.http.fetch(`/tasks/${userId}/task-day`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -24,7 +24,7 @@ export default class ToDoService {
     });
   }
 
-  async finishedTodo(taskId, dayPlan="did", userId = '1') {
+  async finishedTodo(taskId, dayPlan = 'did', userId = '1') {
     const token = this.tokenStorage.getToken();
     await this.http.fetch(`/tasks/${userId}/task-day/${taskId}`, {
       method: 'PUT',
@@ -35,7 +35,7 @@ export default class ToDoService {
       }),
     });
   }
-  
+
   modifyTodo() {}
 
   deleteTodo() {}
