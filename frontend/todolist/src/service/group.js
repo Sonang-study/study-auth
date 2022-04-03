@@ -1,59 +1,65 @@
-export default class ToDoService {
+export default class GroupService {
   constructor(http, tokenStorage) {
     this.http = http;
     this.tokenStorage = tokenStorage;
   }
-
-  async viewDayTodos(userId = '1') {
+  async addGroup(groupName) {
     const token = this.tokenStorage.getToken();
-    const data = await this.http.fetch(`/tasks/${userId}/task-day`, {
+    const data = await this.http.fetch(`/group`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      body: JSON.stringify({
+        name: groupName,
+      }),
+    });
+    return data;
+  }
+
+  async inviteGroup(groupId, userId) {
+    const token = this.tokenStorage.getToken();
+    const data = await this.http.fetch(`/group/invite`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      body: JSON.stringify({
+        groupId,
+        userId,
+      }),
+    });
+    return data;
+  }
+
+  async myGroup() {
+    const token = this.tokenStorage.getToken();
+    const data = await this.http.fetch(`/group/my`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     });
     return data;
   }
 
-  async addTodo(dayPlan, userId = '1') {
+  async memberGroup(groupId) {
     const token = this.tokenStorage.getToken();
-    const data = await this.http.fetch(`/tasks/${userId}/task-day`, {
-      method: 'POST',
+    const data = await this.http.fetch(`/group/${groupId}`, {
+      method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
-      body: JSON.stringify({
-        dayPlan,
-      }),
     });
     return data;
   }
 
-  async finishedTodo(taskId, userId = '1', dayPlan = 'did') {
+  async modifyGroup(groupId, name) {
     const token = this.tokenStorage.getToken();
-    const data = await this.http.fetch(`/tasks/${userId}/task-day/${taskId}`, {
+    const data = await this.http.fetch(`/group/${groupId}`, {
       method: 'PUT',
       headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({
-        finishedAt: Date.now().toString(),
-        dayPlan,
+        name,
       }),
     });
     return data;
   }
-
-  async modifyTodo(taskId, userId, dayPlan) {
+  async deleteGroup(groupId) {
     const token = this.tokenStorage.getToken();
-    const data = await this.http.fetch(`/tasks/${userId}/task-day/${taskId}`, {
-      method: 'PUT',
-      headers: { Authorization: `Bearer ${token}` },
-      body: JSON.stringify({
-        finishedAt: Date.now().toString(),
-        dayPlan,
-      }),
-    });
-    return data;
-  }
-
-  async deleteTodo(taskId, userId) {
-    const token = this.tokenStorage.getToken();
-    const data = await this.http.fetch(`/tasks/${userId}/task-day/${taskId}`, {
+    const data = await this.http.fetch(`/group/${groupId}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` },
     });

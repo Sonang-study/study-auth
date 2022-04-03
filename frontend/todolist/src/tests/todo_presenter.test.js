@@ -1,7 +1,4 @@
-import ToDoService from '../service/todos';
 import TodoPresenter from '../todo_presenter';
-
-jest.mock('../service/todos');
 
 describe('TodoPresenter', () => {
   const todos = [
@@ -13,11 +10,13 @@ describe('TodoPresenter', () => {
   let todoService;
 
   beforeEach(() => {
-    todoService = new ToDoService();
+    todoService = {
+      viewDayTodos: jest.fn(() => todos),
+      addTodo: jest.fn(() => todos),
+      finishedTodo: jest.fn(() => todos),
+    };
     presenter = new TodoPresenter(todoService);
   });
 
-//   it('inits with todos', async () => {
-//     expect(await presenter.getTodos()).toBe(todos);
-//   });
+  it('inits with todos', async () => {});
 });
