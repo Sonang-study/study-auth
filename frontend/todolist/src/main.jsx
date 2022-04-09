@@ -11,7 +11,7 @@ import nowDate from './util/date';
 import Header from './component/header/header';
 
 const Main = memo(
-  ({ setIsLogin, tokenStorage, todoService, todoPresenter }) => {
+  ({ setIsLogin, tokenStorage, todoPresenter }) => {
     const [togglePopup, setTogglePopup] = useState(false);
     const [myId, setMyId] = useState('');
     const [todos, setTodos] = useState([]);
@@ -21,7 +21,7 @@ const Main = memo(
     const [pageDate, setPageDate] = useState(nowDate);
 
     useEffect(async () => {
-      todoPresenter.getTodos().then((todos) => setTodos(todos));
+      await todoPresenter.getTodos().then((todos) => setTodos(todos));
       setMyId();
     }, []);
 

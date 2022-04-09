@@ -20,7 +20,6 @@ ReactDOM.render(
     <App
       authService={authService}
       tokenStorage={tokenStorage}
-      todoService={todoService}
       todoPresenter={todoPresenter}
     />
   </React.StrictMode>,
