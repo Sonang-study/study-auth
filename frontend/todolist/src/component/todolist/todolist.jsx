@@ -27,18 +27,17 @@ const TodoList = memo(
       } else if (e.target.tagName === 'BUTTON') {
         const key = e.target.dataset.key;
         deleteTodo(key);
-      } else if (e.target.tagName === 'UL' || 'SECTION') {
-        handleInput();
       }
     };
 
     const handleChange = (e) => {
       handlePageDate(dateForm.current.value);
     };
-    const onChange = () => {};
+
     const saveFileImage = (e) => {
       setFileImage(URL.createObjectURL(e.target.files[0]));
     };
+    
     const deleteFileImage = () => {
       URL.revokeObjectURL(fileImage);
       setFileImage('');
