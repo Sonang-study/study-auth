@@ -1,5 +1,5 @@
 export default class TodoPresenter {
-  constructor(todoService, userId = '1') {
+  constructor(todoService, userId = '2') {
     this.userId = userId;
     this.todoService = todoService;
     this.todos = [];
