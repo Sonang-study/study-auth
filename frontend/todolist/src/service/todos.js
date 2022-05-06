@@ -4,7 +4,7 @@ export default class ToDoService {
     this.tokenStorage = tokenStorage;
   }
 
-  async viewDayTodos(userId = '1') {
+  async viewDayTodos(userId) {
     const token = this.tokenStorage.getToken();
     const data = await this.http.fetch(`/tasks/${userId}/task-day`, {
       method: 'GET',
@@ -13,7 +13,7 @@ export default class ToDoService {
     return data;
   }
 
-  async addTodo(dayPlan, userId = '1') {
+  async addTodo(dayPlan, userId) {
     const token = this.tokenStorage.getToken();
     const data = await this.http.fetch(`/tasks/${userId}/task-day`, {
       method: 'POST',
@@ -25,7 +25,7 @@ export default class ToDoService {
     return data;
   }
 
-  async finishedTodo(taskId, userId = '1', dayPlan = 'did') {
+  async finishedTodo(taskId, userId, dayPlan = 'did') {
     const token = this.tokenStorage.getToken();
     const data = await this.http.fetch(`/tasks/${userId}/task-day/${taskId}`, {
       method: 'PUT',
