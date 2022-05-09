@@ -3,7 +3,7 @@ import styles from './app.module.css';
 import Login from './component/login/login';
 import Main from './main';
 
-function App({ authService, tokenStorage, todoPresenter }) {
+function App({ authService, tokenStorage, todoPresenter, groupPresenter }) {
   const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
@@ -23,6 +23,7 @@ function App({ authService, tokenStorage, todoPresenter }) {
           setIsLogin={setIsLogin}
           tokenStorage={tokenStorage}
           todoPresenter={todoPresenter}
+          groupPresenter={groupPresenter}
         />
       )}
     </div>

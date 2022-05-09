@@ -1,0 +1,14 @@
+
+.todo_list {
+    display: inline;
+    width: fit-content;
+    cursor: pointer;
+    list-style: none;
+  }
+
+
+.todoBtn {
+    background-color: transparent;
+    border-style: none;
+    cursor: pointer;
+  }

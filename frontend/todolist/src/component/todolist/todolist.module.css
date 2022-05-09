@@ -9,7 +9,7 @@
 }
 .title {
   font-family: 'study_bold';
-  font-size:25px;
+  font-size: 25px;
 }
 .header {
   font-size: 20px;
@@ -33,12 +33,6 @@
   flex: 1 1 50%;
 }
 
-.todoBtn {
-  background-color: transparent;
-  border-style: none;
-  cursor: pointer;
-}
-
 .input {
   width: 50%;
   height: 25px;
@@ -52,18 +46,12 @@
   padding-left: 10px;
 }
 .todo_lists {
-  margin:0px;
+  margin: 0px;
   display: flex;
   flex-direction: column;
   flex: 1 1 50%;
   height: 90%;
   overflow: scroll;
-}
-.todo_list {
-  display: inline;
-  width: fit-content;
-  cursor: pointer;
-  list-style: none;
 }
 
 .memo {

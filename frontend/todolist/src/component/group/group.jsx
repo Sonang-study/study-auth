@@ -1,10 +1,14 @@
 import React from 'react';
 import styles from './group.module.css';
 import defaultImage from '../../image/defaultImage.png';
+import { useSetRecoilState } from 'recoil';
+import { usersSelector } from '../../service/atom';
 
-const Group = ({ group, handleGroup }) => {
-  const onGroupClick = (e) => {
-    handleGroup(group.groupId);
+const Group = ({ group, groupPresenter }) => {
+  const setUsers = useSetRecoilState(usersSelector);
+  const onGroupClick = async () => {
+    const newMembers = await groupPresenter.getGroupMembers(group.id);
+    setUsers(newMembers);
   };
   return (
     <img

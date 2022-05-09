@@ -57,10 +57,29 @@ export default class GroupService {
     });
     return data;
   }
+
   async deleteGroup(groupId) {
     const token = this.tokenStorage.getToken();
     const data = await this.http.fetch(`/group/${groupId}`, {
       method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  }
+
+  async getGroupMembers(groupId = '7') {
+    const token = this.tokenStorage.getToken();
+    const data = await this.http.fetch(`/group/${groupId}`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  }
+
+  async getUsers() {
+    const token = this.tokenStorage.getToken();
+    const data = await this.http.fetch(`/users`, {
+      method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     });
     return data;
