@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { type } from "os";
 import { Action } from "src/casl/action.enum";
 import { CaslAbilityFactory } from "src/casl/casl-ability.factory";
 import { AlreadyExistError } from "src/common/errors/already-exist.error";
