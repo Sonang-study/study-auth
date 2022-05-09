@@ -10,7 +10,6 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { ApiOperation } from "@nestjs/swagger";
-import { userInfo } from "os";
 import { JwtAuthGuard } from "src/auth/jwt/jwt-auth.guard";
 import { User } from "src/users/user.decorator";
 import { GroupService } from "./group.service";
@@ -19,6 +18,12 @@ import { GroupService } from "./group.service";
 @Controller("group")
 export class GroupController {
   constructor(private groupService: GroupService) {}
+
+  @ApiOperation({ summary: "그룹 전체 리스트" })
+  @Get("")
+  async AllGroupList() {
+    return await this.groupService.getAllGroup();
+  }
 
   @ApiOperation({ summary: "그룹 생성" })
   @Post("")
