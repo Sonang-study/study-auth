@@ -5,8 +5,9 @@ export default class TodoPresenter {
     this.todos = [];
   }
 
-  getTodos = async () => {
-    return await this.todoService.viewDayTodos(this.userId);
+  getTodos = async (userId="7") => {
+    console.log(userId, "getToDos")
+    return await this.todoService.viewDayTodos(userId);
   };
 
   add = async (todo, setTodos) => {

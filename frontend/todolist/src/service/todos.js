@@ -5,8 +5,9 @@ export default class ToDoService {
   }
 
   async viewDayTodos(userId) {
+    console.log(userId, "viewDayToDos")
     const token = this.tokenStorage.getToken();
-    const data = await this.http.fetch(`/tasks/${userId}/task-day`, {
+    const data = await this.http.fetch(`/tasks`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     });

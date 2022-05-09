@@ -1,12 +1,27 @@
-import React, { memo, useRef, useState } from 'react';
+import React, { memo, useRef, useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { toDoSelector } from '../../service/atom';
 import styles from './todolist.module.css';
+import ToDo from '../todo/todo';
 
 const TodoList = memo(
-  ({ todos, pageDate, finishedTodo, addTodo, deleteTodo, handlePageDate }) => {
+  ({
+    todoPresenter,
+    pageDate,
+    finishedTodo,
+    addTodo,
+    deleteTodo,
+    handlePageDate,
+  }) => {
+    const [toDos, setToDos] = useRecoilState(toDoSelector);
     const [onInput, setOnInput] = useState(false);
     const [fileImage, setFileImage] = useState('');
     const inputValue = useRef(null);
     const dateForm = useRef(null);
+
+    useEffect(async () => {
+      await todoPresenter.getTodos().then((todo) => setToDos(todo));
+    }, []);
 
     const handleKeyPress = (e) => {
       if (e.key === 'Enter') {
@@ -37,7 +52,7 @@ const TodoList = memo(
     const saveFileImage = (e) => {
       setFileImage(URL.createObjectURL(e.target.files[0]));
     };
-    
+
     const deleteFileImage = () => {
       URL.revokeObjectURL(fileImage);
       setFileImage('');
@@ -71,33 +86,9 @@ const TodoList = memo(
               />
             )}
             <ul className={styles.todo_lists}>
-              {todos.map((todo, index) =>
-                !todo.finishedAt ? (
-                  <li
-                    className={styles.todo_list}
-                    key={index}
-                    data-key={todo.id}
-                    data-dayplan={todo.dayPlan}
-                  >
-                    <button data-key={todo.id} className={styles.todoBtn}>
-                      ✓
-                    </button>
-                    {todo.dayPlan}
-                  </li>
-                ) : (
-                  <li
-                    className={styles.todo_list}
-                    key={index}
-                    data-key={todo.id}
-                    data-dayplan={todo.dayPlan}
-                  >
-                    <button data-key={todo.id} className={styles.todoBtn}>
-                      ✓
-                    </button>
-                    <s>{todo.dayPlan}</s>
-                  </li>
-                )
-              )}
+              {toDos.map((todo, index) => (
+                <ToDo todo={todo} key={index} index={index} />
+              ))}
             </ul>
           </section>
           <section className={styles.memo}>
