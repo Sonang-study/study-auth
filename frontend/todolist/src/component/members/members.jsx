@@ -9,13 +9,11 @@ import { membersState } from '../../service/atom';
 const Members = memo(
   ({ groupPresenter, todoPresenter, handleUser, onPopupClick }) => {
     const [members, setMembers] = useRecoilState(membersState);
-    
-    useEffect(async () => {
-      await groupPresenter
-        .getGroupMembers()
-        .then((member) => setMembers(member));
-    }, []);
 
+    useEffect(async () => {
+      const newMember = await groupPresenter.getGroupMembers(7);
+      console.log(newMember);
+    }, []);
 
     const onAddMember = () => {
       onPopupClick();
@@ -33,7 +31,12 @@ const Members = memo(
         </section>
         <section className={styles.member}>
           {members.map((member, index) => (
-            <Member todoPresenter={todoPresenter} handleUser={handleUser} key={index} member={member} />
+            <Member
+              todoPresenter={todoPresenter}
+              handleUser={handleUser}
+              key={index}
+              member={member}
+            />
           ))}
         </section>
       </section>

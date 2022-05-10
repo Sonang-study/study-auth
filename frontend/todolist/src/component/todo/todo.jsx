@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './todo.module.css';
 
 const ToDo = ({ todo, index }) => {
+    
   return !todo.finishedAt ? (
     <li
       className={styles.todo_list}

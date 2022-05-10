@@ -8,6 +8,7 @@ const Member = ({ todoPresenter, member }) => {
   const toDosSelector = useSetRecoilState(toDoSelector);
   const selectUser = async (e) => {
     const newToDos = await todoPresenter.getTodos(member.id);
+    console.log(newToDos, member.id);
     toDosSelector(newToDos);
   };
   return (

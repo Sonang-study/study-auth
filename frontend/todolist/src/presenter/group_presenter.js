@@ -12,7 +12,8 @@ export default class GroupPresenter {
     return await this.groupService.myGroup();
   };
 
-  getGroupMembers = async () => {
-    return await this.groupService.getGroupMembers(this.groupId);
+  getGroupMembers = async (id = '7') => {
+    console.log(id);
+    return await this.groupService.getGroupMembers(id);
   };
 }

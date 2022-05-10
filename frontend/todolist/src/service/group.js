@@ -73,6 +73,7 @@ export default class GroupService {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     });
+    console.log(data);
     return data;
   }
 
