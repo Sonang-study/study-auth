@@ -31,13 +31,17 @@ export default class AuthService {
     return data;
   }
 
-  async me() {
+  me() {
+    console.log('me');
     const token = this.tokenStorage.getToken();
-    return this.http.fetch(`/auth/me`, {
+    return this.http.fetch(`/users/me`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     });
+    
+    
   }
+
   async logout() {
     this.tokenStorage.clearToken();
   }

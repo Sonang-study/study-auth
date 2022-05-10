@@ -14,6 +14,15 @@ export default class ToDoService {
     return data;
   }
 
+  async getTodo(userId){
+    const token = this.tokenStorage.getToken();
+    const data = await this.http.fetch(`/tasks/${userId}/task-day`, {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  }
+
   async addTodo(dayPlan, userId) {
     const token = this.tokenStorage.getToken();
     const data = await this.http.fetch(`/tasks/${userId}/task-day`, {
