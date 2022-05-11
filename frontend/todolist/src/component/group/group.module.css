@@ -29,3 +29,14 @@
 .groupImage:hover {
   transform: scale(1.03);
 }
+.selectedGroupImage {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+  border: 2px solid red;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+}
+.selectedGroupImage:hover {
+  transform: scale(1.03);
+}

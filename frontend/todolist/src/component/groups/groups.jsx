@@ -3,14 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styles from './groups.module.css';
 import Group from '../group/group';
-import { groupState, usersSelector } from '../../service/atom';
+import { groupState, selectedGroupState } from '../../service/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-const Groups = memo(({ groupPresenter, handleGroup, onPopupClick }) => {
+const Groups = memo(({ groupPresenter, onPopupClick }) => {
   const [groups, setGroups] = useRecoilState(groupState);
+  const setSelectedGroup = useSetRecoilState(selectedGroupState);
 
   useEffect(async () => {
-    await groupPresenter.getMyGroup().then((group) => setGroups(group));
+    await groupPresenter.getMyGroup().then((group) => {
+      setSelectedGroup(group[0]);
+      setGroups(group);
+    });
   }, []);
 
   const onAddGroup = () => {
@@ -27,8 +31,8 @@ const Groups = memo(({ groupPresenter, handleGroup, onPopupClick }) => {
         />
       </section>
       <section className={styles.group}>
-        {groups.map((group, index) => (
-          <Group groupPresenter={groupPresenter} key={index} group={group} />
+        {groups.map((group) => (
+          <Group groupPresenter={groupPresenter} key={group.id} group={group} />
         ))}
       </section>
     </div>
