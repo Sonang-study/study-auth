@@ -13,7 +13,6 @@ export default class GroupPresenter {
   };
 
   getGroupMembers = async (id = '7') => {
-    console.log(id);
     return await this.groupService.getGroupMembers(id);
   };
 }

@@ -11,8 +11,9 @@ const Members = memo(
     const [members, setMembers] = useRecoilState(membersState);
 
     useEffect(async () => {
-      const newMember = await groupPresenter.getGroupMembers(7);
-      console.log(newMember);
+      const groupId = await groupPresenter.getMyGroup();
+      const newMember = await groupPresenter.getGroupMembers(groupId[0].id);
+      setMembers(newMember);
     }, []);
 
     const onAddMember = () => {
