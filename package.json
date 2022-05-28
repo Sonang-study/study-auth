@@ -1,5 +1,10 @@
 {
   "devDependencies": {
     "cypress": "^9.4.1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.100.0",
+    "@aws-sdk/s3-request-presigner": "^3.100.0",
+    "aws-sdk": "^2.1144.0"
   }
 }

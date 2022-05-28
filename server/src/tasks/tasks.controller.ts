@@ -10,7 +10,7 @@ import {
   Query,
   UseGuards,
 } from "@nestjs/common";
-import { ApiOperation } from "@nestjs/swagger";
+import { ApiOperation, ApiQuery } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/auth/jwt/jwt-auth.guard";
 import { User } from "src/users/user.decorator";
 import { CreateTaskDto } from "./dtos/createTask.dto";
@@ -24,10 +24,27 @@ import { TasksService } from "./tasks.service";
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
-  @ApiOperation({ summary: "하루 종합 목표 리스트" })
+  @ApiOperation({
+    summary: "1주일 목표 리스트",
+    description: "날짜 입력하면 날짜가 속한 한주의 목표 리스트 나열",
+  })
+  @ApiQuery({
+    name: "date",
+    required: false,
+    description: "검색하려고 하는 날짜 default = 오늘",
+  })
+  @ApiQuery({
+    name: "userId",
+    required: false,
+    description: "검색하려고 하는 유저의ID default = 본인",
+  })
   @Get("")
-  async getTaskList(@Query("userId") userId: number | null, @User() user) {
-    return await this.tasksService.getAll(userId, user);
+  async getTaskList(
+    @Query("userId") userId: number | null,
+    @Query("date") date: string | null,
+    @User() user
+  ) {
+    return await this.tasksService.getAll(userId, date, user);
   }
 
   @ApiOperation({ summary: "하루 종합 목표 설정" })
@@ -37,9 +54,23 @@ export class TasksController {
   }
 
   @ApiOperation({ summary: "할일 상세정보" })
-  @Get(":id")
-  async getTask(@Param("id", ParseIntPipe) id: number) {
-    return await this.tasksService.getOne(id);
+  @ApiQuery({
+    name: "date",
+    required: false,
+    description: "검색하려고 하는 날짜 default = 오늘",
+  })
+  @ApiQuery({
+    name: "userId",
+    required: false,
+    description: "검색하려고 하는 유저의ID default = 본인",
+  })
+  @Get("detail")
+  async getTask(
+    @Query("userId") userId: number | null,
+    @Query("date") date: string | null,
+    @User() user
+  ) {
+    return await this.tasksService.getOne(userId, date, user);
   }
 
   @ApiOperation({ summary: "할일 종합 목표 수정 및 인증사진 추가" })
@@ -111,5 +142,14 @@ export class TasksController {
     @User() user
   ) {
     return await this.tasksService.deleteTaskDay(taskId, taskDayId, user);
+  }
+
+  @ApiOperation({ summary: "이미지 업로드 presignedUrl" })
+  @Post(":id/imageUrl")
+  async getPresignedUrl(
+    @Param("id", ParseIntPipe) taskId: number,
+    @User() user
+  ) {
+    return await this.tasksService.getPreSignedUrl(taskId);
   }
 }

@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Request, UseGuards } from "@nestjs/common";
-import { ApiBody, ApiOperation } from "@nestjs/swagger";
+import {ApiBody, ApiOperation, ApiParam} from "@nestjs/swagger";
 import { AuthService } from "./auth/auth.service";
 import { LocalAuthGuard } from "./auth/local/local-auth.guard";
 import { CreateUserDto } from "./users/dtos/createUser.dto";
@@ -15,6 +15,7 @@ export class AppController {
 
   @ApiBody({ type: [LoginUserDto] })
   @ApiOperation({ summary: "로그인" })
+  @ApiBody({ type: LoginUserDto })
   @UseGuards(LocalAuthGuard)
   @Post("auth/login")
   async login(@Request() req) {
@@ -22,6 +23,7 @@ export class AppController {
   }
   @ApiBody({ type: [CreateUserDto] })
   @ApiOperation({ summary: "회원가입" })
+  @ApiBody({ type: CreateUserDto })
   @Post("auth/signup")
   async createUser(@Body() createUserDto: CreateUserDto) {
     return await this.usersService.create(createUserDto);
