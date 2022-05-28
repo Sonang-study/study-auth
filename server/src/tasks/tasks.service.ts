@@ -13,6 +13,14 @@ import { UpdateTaskDto } from "./dtos/updateTask.dto";
 import { UpdateTaskDayDto } from "./dtos/updateTaskDay.dto";
 import { TaskDay } from "./entities/task.day.entity";
 import { Task } from "./entities/task.entity";
+import AWS from "aws-sdk";
+
+const s3 = new AWS.S3({
+  // signatureVersion: "v4",
+  region: "ap-northeast-2",
+  accessKeyId: process.env.accessKeyId,
+  secretAccessKey: process.env.secretAccessKey,
+});
 
 @Injectable()
 export class TasksService {
@@ -23,12 +31,51 @@ export class TasksService {
     private caslAbilityFactory: CaslAbilityFactory
   ) {}
 
-  async getAll(userId: number | null, user): Promise<Task[]> {
+  async getAll(
+    userId: number | null,
+    date: string | null,
+    user
+  ): Promise<Task[]> {
+    let nowDate;
+    if (date) {
+      nowDate = new Date(date);
+    } else {
+      nowDate = new Date();
+      nowDate.setHours(9, 0, 0, 0);
+    }
+
+    const dayOfWeek = nowDate.getDay();
+    const day = nowDate.getDate();
+    const month = nowDate.getMonth();
+    const year = nowDate.getFullYear();
+    const monday = new Date(year, month, day - dayOfWeek);
+    const week = [];
+
+    for (let i = 0; i < 7; i++) {
+      const days = new Date(year, month, day - dayOfWeek + i);
+      days.setHours(9, 0, 0, 0);
+      week.push(days);
+    }
+
     if (!userId) {
-      return await this.tasks.find({ where: { userId: user.id } });
+      return this.tasks
+        .createQueryBuilder("tasks")
+        .leftJoinAndSelect("tasks.taskDays", "taskDays")
+        .where("userId = :userId and date IN (:week)", {
+          userId: user.id,
+          week,
+        })
+        .getMany();
     }
     userId = +userId;
-    return await this.tasks.find({ where: { userId } });
+    return this.tasks
+      .createQueryBuilder("tasks")
+      .leftJoinAndSelect("tasks.taskDays", "taskDays")
+      .where("userId = :userId and date IN (:week)", {
+        userId,
+        week,
+      })
+      .getMany();
   }
 
   async createTask({ date, plan }: CreateTaskDto, user): Promise<string> {
@@ -50,8 +97,32 @@ export class TasksService {
     return "success create task";
   }
 
-  async getOne(id): Promise<Task> {
-    return await this.tasks.findOne(id, { relations: ["taskDays"] });
+  async getOne(
+    userId: number | null,
+    date: string | null,
+    user
+  ): Promise<Task> {
+    let nowDate;
+    if (date) {
+      nowDate = new Date(date);
+    } else {
+      nowDate = new Date();
+      nowDate.setHours(9, 0, 0, 0);
+    }
+
+    if (!userId) {
+      return await this.tasks.findOne({
+        where: { userId: user.id, date: nowDate },
+        relations: ["taskDays"],
+      });
+    }
+
+    userId = +userId;
+
+    return await this.tasks.findOne({
+      where: { userId, date: nowDate },
+      relations: ["taskDays"],
+    });
   }
 
   async updateTask(
@@ -157,5 +228,27 @@ export class TasksService {
 
     await this.taskDay.delete({ id: taskDayId });
     return "success delete Task Day";
+  }
+
+  async getPreSignedUrl(taskId: number) {
+    const BUCKET = "study-auth";
+
+    // const s3 = new AWS.S3();
+    const timeStamp = +new Date();
+    return s3.getSignedUrl("putObject", {
+      Bucket: BUCKET,
+      Key: taskId + timeStamp,
+      Expires: 900,
+      ContentType: "image/png",
+      ACL: "public-read",
+    });
+
+    // const signedUrl = s3.getSignedUrl("getObject", {
+    //   Key: taskId + timeStamp,
+    //   Bucket: BUCKET,
+    //   Expires: 900,
+    // });
+
+    // return signedUrl;
   }
 }
