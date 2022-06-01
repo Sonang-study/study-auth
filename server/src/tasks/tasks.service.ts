@@ -13,14 +13,14 @@ import { UpdateTaskDto } from "./dtos/updateTask.dto";
 import { UpdateTaskDayDto } from "./dtos/updateTaskDay.dto";
 import { TaskDay } from "./entities/task.day.entity";
 import { Task } from "./entities/task.entity";
-import AWS from "aws-sdk";
-
-const s3 = new AWS.S3({
-  // signatureVersion: "v4",
-  region: "ap-northeast-2",
-  accessKeyId: process.env.accessKeyId,
-  secretAccessKey: process.env.secretAccessKey,
-});
+// import AWS from "aws-sdk";
+//
+// const s3 = new AWS.S3({
+//   // signatureVersion: "v4",
+//   region: "ap-northeast-2",
+//   accessKeyId: process.env.accessKeyId,
+//   secretAccessKey: process.env.secretAccessKey,
+// });
 
 @Injectable()
 export class TasksService {
