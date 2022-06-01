@@ -144,12 +144,12 @@ export class TasksController {
     return await this.tasksService.deleteTaskDay(taskId, taskDayId, user);
   }
 
-  @ApiOperation({ summary: "이미지 업로드 presignedUrl" })
-  @Post(":id/imageUrl")
-  async getPresignedUrl(
-    @Param("id", ParseIntPipe) taskId: number,
-    @User() user
-  ) {
-    return await this.tasksService.getPreSignedUrl(taskId);
-  }
+  // @ApiOperation({ summary: "이미지 업로드 presignedUrl" })
+  // @Post(":id/imageUrl")
+  // async getPresignedUrl(
+  //   @Param("id", ParseIntPipe) taskId: number,
+  //   @User() user
+  // ) {
+  //   return await this.tasksService.getPreSignedUrl(taskId);
+  // }
 }

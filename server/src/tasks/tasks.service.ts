@@ -230,25 +230,25 @@ export class TasksService {
     return "success delete Task Day";
   }
 
-  async getPreSignedUrl(taskId: number) {
-    const BUCKET = "study-auth";
-
-    // const s3 = new AWS.S3();
-    const timeStamp = +new Date();
-    return s3.getSignedUrl("putObject", {
-      Bucket: BUCKET,
-      Key: taskId + timeStamp,
-      Expires: 900,
-      ContentType: "image/png",
-      ACL: "public-read",
-    });
-
-    // const signedUrl = s3.getSignedUrl("getObject", {
-    //   Key: taskId + timeStamp,
-    //   Bucket: BUCKET,
-    //   Expires: 900,
-    // });
-
-    // return signedUrl;
-  }
+  // async getPreSignedUrl(taskId: number) {
+  //   const BUCKET = "study-auth";
+  //
+  //   // const s3 = new AWS.S3();
+  //   const timeStamp = +new Date();
+  //   return s3.getSignedUrl("putObject", {
+  //     Bucket: BUCKET,
+  //     Key: taskId + timeStamp,
+  //     Expires: 900,
+  //     ContentType: "image/png",
+  //     ACL: "public-read",
+  //   });
+  //
+  //   // const signedUrl = s3.getSignedUrl("getObject", {
+  //   //   Key: taskId + timeStamp,
+  //   //   Bucket: BUCKET,
+  //   //   Expires: 900,
+  //   // });
+  //
+  //   // return signedUrl;
+  // }
 }
