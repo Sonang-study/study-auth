@@ -5,16 +5,18 @@ export default class AuthService {
   }
 
   async signup(firstName, lastName, email, password) {
-    const data = await this.http.fetch(`/auth/siginup`, {
+    const data = await this.http.fetch(`/auth/signup`, {
       method: 'POST',
       body: JSON.stringify({
         firstName,
         lastName,
         email,
         password,
-        role: 'user',
+        signupMethod:"local",
+        role: 'USER',
       }),
     });
+    console.log("data",data);
     this.tokenStorage.saveToken(data.access_token);
     return data;
   }
@@ -38,8 +40,6 @@ export default class AuthService {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     });
-    
-    
   }
 
   async logout() {
