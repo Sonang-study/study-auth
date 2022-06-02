@@ -54,27 +54,21 @@ export class TasksService {
     for (let i = 0; i < 7; i++) {
       const days = new Date(year, month, day - dayOfWeek + i);
       days.setHours(9, 0, 0, 0);
-      week.push(days);
+      week.push(JSON.stringify(days));
     }
 
     if (!userId) {
       return this.tasks
         .createQueryBuilder("tasks")
         .leftJoinAndSelect("tasks.taskDays", "taskDays")
-        .where("userId = :userId and date IN (:week)", {
-          userId: user.id,
-          week,
-        })
+        .where(`userId = ${user.id} and date IN (${week})`)
         .getMany();
     }
     userId = +userId;
     return this.tasks
       .createQueryBuilder("tasks")
       .leftJoinAndSelect("tasks.taskDays", "taskDays")
-      .where("userId = :userId and date IN (:week)", {
-        userId,
-        week,
-      })
+      .where(`userId = ${userId} and date IN (${week})`)
       .getMany();
   }
 
