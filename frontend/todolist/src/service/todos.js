@@ -23,9 +23,10 @@ export default class ToDoService {
     return data;
   }
 
-  async addTodo(dayPlan, userId) {
+  async addTodo(dayPlan, taskId) {
     const token = this.tokenStorage.getToken();
-    const data = await this.http.fetch(`/tasks/${userId}/task-day`, {
+    
+    const data = await this.http.fetch(`/tasks/${taskId}/task-day`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` },
       body: JSON.stringify({

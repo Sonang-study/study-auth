@@ -22,13 +22,15 @@ export default class TodoPresenter {
     return await this.todoService.viewDayTodos(userId, date);
   };
 
-  add = async (todo, setTodos) => {
-    setTodos([
-      { id: Date.now(), finishedAt: null, dayPlan: todo },
-      ...this.todos,
-    ]);
-    await this.todoService.addTodo(todo);
-    await this.todoService.viewDayTodos().then((data) => setTodos(data));
+  add = async (todo) => {
+    // setTodos([
+    //   { id: Date.now(), finishedAt: null, dayPlan: todo },
+    //   ...this.todos,
+    // ]);
+    const data = await this.getTodos();
+    console.log('data', data);
+    await this.todoService.addTodo(todo, data.id);
+    // await this.todoService.viewDayTodos().then((data) => setTodos(data));
   };
 
   delete = (key, setTodos) => {

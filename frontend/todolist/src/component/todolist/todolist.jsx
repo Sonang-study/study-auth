@@ -27,11 +27,16 @@ const TodoList = memo(
       });
     }, []);
 
-    const handleKeyPress = (e) => {
+    const handleKeyPress = async (e) => {
       if (e.key === 'Enter') {
         const todo = inputValue.current.value;
-        addTodo(todo);
+        await todoPresenter.add(todo);
         inputValue.current.value = '';
+
+        await todoPresenter.getTodos().then((todo) => {
+          setDayToDo(todo.dayPlan);
+          setToDos(todo.taskDays);
+        });
       }
     };
 
