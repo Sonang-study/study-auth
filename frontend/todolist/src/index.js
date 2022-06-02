@@ -17,7 +17,7 @@ const httpClient = new HttpClient(baseURL);
 const authService = new AuthService(httpClient, tokenStorage);
 const todoService = new ToDoService(httpClient, tokenStorage);
 const groupService = new GroupService(httpClient, tokenStorage);
-const todoPresenter = new TodoPresenter(todoService);
+const todoPresenter = new TodoPresenter(todoService, authService);
 const groupPresenter = new GroupPresenter(groupService);
 
 ReactDOM.render(

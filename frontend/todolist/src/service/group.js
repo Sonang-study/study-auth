@@ -67,13 +67,13 @@ export default class GroupService {
     return data;
   }
 
-  async getGroupMembers(groupId = '7') {
+  async getGroupMembers(groupId) {
     const token = this.tokenStorage.getToken();
     const data = await this.http.fetch(`/group/${groupId}`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(data);
+
     return data;
   }
 

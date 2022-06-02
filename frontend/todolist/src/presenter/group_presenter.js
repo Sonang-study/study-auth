@@ -12,7 +12,7 @@ export default class GroupPresenter {
     return await this.groupService.myGroup();
   };
 
-  getGroupMembers = async (id = '7') => {
+  getGroupMembers = async (id) => {
     return await this.groupService.getGroupMembers(id);
   };
 }
