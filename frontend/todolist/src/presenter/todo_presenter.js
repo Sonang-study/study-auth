@@ -1,13 +1,25 @@
 export default class TodoPresenter {
-  constructor(todoService, userId = '2') {
-    this.userId = userId;
+  constructor(todoService, authService) {
+    this.authService = authService;
     this.todoService = todoService;
     this.todos = [];
   }
 
-  getTodos = async (userId="7") => {
-    console.log(userId, "getToDos")
-    return await this.todoService.viewDayTodos(userId);
+  getTodos = async (userId, date) => {
+    if (!userId) {
+      const data = await this.authService.me();
+      userId = data.id;
+    }
+    if (!date) {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = ('0' + (today.getMonth() + 1)).slice(-2);
+      const day = ('0' + today.getDate()).slice(-2);
+
+      date = year + '-' + month + '-' + day;
+    }
+    console.log(userId, date);
+    return await this.todoService.viewDayTodos(userId, date);
   };
 
   add = async (todo, setTodos) => {

@@ -14,13 +14,17 @@ const TodoList = memo(
     handlePageDate,
   }) => {
     const [toDos, setToDos] = useRecoilState(toDoSelector);
+    const [dayToDo, setDayToDo] = useState();
     const [onInput, setOnInput] = useState(false);
     const [fileImage, setFileImage] = useState('');
     const inputValue = useRef(null);
     const dateForm = useRef(null);
 
     useEffect(async () => {
-      await todoPresenter.getTodos().then((todo) => setToDos(todo));
+      await todoPresenter.getTodos().then((todo) => {
+        setDayToDo(todo.dayPlan);
+        setToDos(todo.taskDays);
+      });
     }, []);
 
     const handleKeyPress = (e) => {
@@ -87,7 +91,7 @@ const TodoList = memo(
             )}
             <ul className={styles.todo_lists}>
               {toDos.map((todo, index) => (
-                <ToDo todo={todo} key={index} index={index} />
+                <ToDo todo={todo} key={todo.id} index={index} />
               ))}
             </ul>
           </section>

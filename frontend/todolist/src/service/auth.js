@@ -32,14 +32,11 @@ export default class AuthService {
   }
 
   me() {
-    console.log('me');
     const token = this.tokenStorage.getToken();
     return this.http.fetch(`/users/me`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` },
     });
-    
-    
   }
 
   async logout() {
